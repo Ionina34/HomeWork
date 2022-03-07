@@ -10,7 +10,15 @@ namespace _2
     {
         static void Main(string[] args)
         {
-            
+            //1)
+            int[] A = new int[5];
+            double[,] B = new double[3, 4];
+            Console.WriteLine("Заполните массив: ");
+            foreach (int i in A)
+            {
+
+            }
+
         }
     }
 }

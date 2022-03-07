@@ -65,15 +65,15 @@ namespace _1
                         }
                         else
                         {
-                            string tmp = num_1.ToString();
+                            //string tmp = num_1.ToString();
+                            string tmp =Convert.ToString(num_1);
                             Console.Write("Введите разряды цифр: ");
                             int a = Int32.Parse(Console.ReadLine());
                             int b = Int32.Parse(Console.ReadLine());
                             for (int i = 0; i < tmp.Length; i++)
                             {
-                                //-1 т.к счет с 0
-                                if (i == a - 1) Console.Write(tmp[b - 1]);
-                                else if (i == b - 1) Console.Write(tmp[a - 1]);
+                                if (i == a) Console.Write(tmp[b]);
+                                else if (i == b) Console.Write(tmp[a]);
                                 else Console.Write(tmp[i]);
                             }
                             Console.ReadLine();
