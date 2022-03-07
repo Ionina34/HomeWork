@@ -96,6 +96,11 @@ namespace _1
                             Console.WriteLine("В феврале в этом году 29 дней");
                             proverka = false;
                         }
+                        else if(year%4!=0 && month ==2 && day_of_month>28)
+                        {
+                            Console.WriteLine("В феврале в этом году 28 дней");
+                            proverka = false;
+                        }
                         else if (month > 12)
                         {
                             Console.WriteLine("Такого месяца не существует!");
