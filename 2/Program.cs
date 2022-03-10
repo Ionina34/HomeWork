@@ -15,7 +15,7 @@ namespace _2
             do
             {
                 Console.Clear();
-                Console.Write("Задание 1\nЗадание 2\nЗадание 3\nЗадание 4\nЗадание 7\n");
+                Console.Write("Задание 1:\nЗадание 2:\nЗадание 3:\nЗадание 4:\nЗадание 5:\nЗадание 7:\n");
                 Console.Write("Сделайте свой выбор: ");
                 int s = Int32.Parse(Console.ReadLine());
                 switch (s)
@@ -290,6 +290,29 @@ namespace _2
                                 WriteLine();
                             }
                         }
+                        btn = Console.ReadKey();
+                        break;
+                    case 5:
+                        Clear();
+                        Write("Введите выражение: ");
+                        string stroc = ReadLine();
+                        char[] operat = { '-', '+' };
+
+                        var data = stroc.Split(operat, StringSplitOptions.None);
+                        int resul = int.Parse(data[0]);
+
+                        for (int i = 1; i < data.Length; i++)
+                        {
+                            if (stroc.Contains("+"))
+                            {
+                                resul += int.Parse(data[i]);
+                            }
+                            else //(stroc.Contains("-"))
+                            {
+                                resul -= int.Parse(data[i]);
+                            }
+                        }
+                        WriteLine(resul);
                         btn = Console.ReadKey();
                         break;
                     case 7:
