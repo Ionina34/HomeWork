@@ -101,13 +101,16 @@ namespace _2
             /*Clear();
             WriteLine("1 - Зашифровка\n2 - Дешифровка");
             int v = Int32.Parse(ReadLine());
+
             Write("Введите строку: ");
             string stroka = ReadLine();
+
             int nomer = 0, sdvig = 0, j = 0;
             // Номер в алфавите, Смещение, для цикла
             string result = "0";
             Write("Введите ключ: ");
             sdvig = Int32.Parse(ReadLine());
+
             char[] massege = stroka.ToCharArray();
             char[] alf = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з',
                 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т',
@@ -170,11 +173,17 @@ namespace _2
             //4)
             /*Clear();
             int[,] arr = new int[3, 3];
-            int[,] arr1 = new int[3, 3];
-            Random rand = new Random();
-            WriteLine("1 Матрица: ");
             int rows = arr.GetUpperBound(0) + 1;
             int cols = arr.Length / rows;
+            int[,] arr1 = new int[3, 3];
+            int rows1 = arr1.GetUpperBound(0) + 1;
+            int cols1 = arr1.Length / rows;
+            int[,] res = new int[rows, cols1];
+            int rows2 = res.GetUpperBound(0) + 1;
+            int cols2 = res.Length / rows2;
+
+            Random rand = new Random();
+            WriteLine("1 Матрица: ");
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
@@ -185,9 +194,8 @@ namespace _2
                 WriteLine();
             }
             WriteLine();
+
             WriteLine("2 Матрица");
-            int rows1 = arr1.GetUpperBound(0) + 1;
-            int cols1 = arr1.Length / rows;
             for (int i = 0; i < rows1; i++)
             {
                 for (int j = 0; j < cols1; j++)
@@ -197,10 +205,7 @@ namespace _2
                 }
                 WriteLine();
             }
-
-            int[,] res = new int[rows, cols1];
-            int rows2 = res.GetUpperBound(0) + 1;
-            int cols2 = res.Length / rows2;
+            WriteLine();
 
             Write($"Какую матрицу будем умножать 1 или 2? ");
             int v = Int32.Parse(ReadLine());
@@ -221,6 +226,7 @@ namespace _2
                     }
                     break;
                 case 2:
+             WriteLine($"2 Матрица умноженная на {num}"); ;
                     for(int i=0;i<rows1;i++)
                     {
                         for(int j=0;j<cols1;j++)
@@ -233,6 +239,7 @@ namespace _2
                     break;
             }
             WriteLine();
+
             WriteLine("Сложение 1 и 2 Матриц: ");
             if(rows==rows1 && cols==cols1)
             {
@@ -254,6 +261,7 @@ namespace _2
                 {
                     for (int j = 0; j < cols1; j++)
                     {
+                        res[i,j]=0;
                         for (int k = 0; k < rows1; k++)
                         {
                             res[i, j] += arr[i, k] * arr1[k, j];
@@ -270,8 +278,30 @@ namespace _2
                 }
             }*/
 
-            //5
+            //7
+            Clear();
+            string s = $"To be, or not to be, that is the question,\n" +
+$"Whether 'tis nobler in the mind to suffer\n" +
+               $"Or to take arms against a sea of troubles,\n" +
+$"And by opposing end them? To die: to sleep;\n" +
+          $"No more; and by a sleep to say we end\n" +
+$"The heart-ache and the thousand natural shocks\n" +
+$"That flesh is heir to, 'tis a consummation\n" +
+$"Devoutly to be wish'd. To die, to sleep\n";
+            int statistica = 0;
+            //string a = "die";
+            for(int i=0;i<s.Length;i++)
+            {
+                if (s[i] == 'd' && s[i + 1] == 'i' && s[i + 2] == 'e')
+                {
+                    statistica++;
+                }
+            }
+             s = s.Replace("die", "***");
 
+            //WriteLine();
+            WriteLine(s);
+            WriteLine($"{statistica} замены слова die");
 
             Console.ReadLine();
         }
