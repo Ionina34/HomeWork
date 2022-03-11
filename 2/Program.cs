@@ -126,9 +126,7 @@ namespace _2
                         char[] massege = stroka.ToCharArray();
                         char[] alf = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з',
                             'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т',
-                            'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я',
-                        'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
-                        'p','q','r','s','t','u','v','w','x','y','z'};
+                            'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
                         switch (v)
                         {
                             case 1:
@@ -145,9 +143,9 @@ namespace _2
                                     {
                                         nomer = j;
                                         nomer += sdvig;
-                                        if (nomer > 58)
+                                        if (nomer > 32)
                                         {
-                                            nomer -= 59;
+                                            nomer -= 33;
                                         }
                                         massege[i] = alf[nomer];
                                     }
@@ -168,10 +166,10 @@ namespace _2
                                     if (j != 33) ;//Если 33 - символ не из алфовита
                                     {
                                         nomer = j;
-                                        nomer = nomer + (59 - sdvig);
+                                        nomer = nomer + (33 - sdvig);
                                         if (nomer > 32)
                                         {
-                                            nomer -= 59;
+                                            nomer -= 33;
                                         }
                                         massege[i] = alf[nomer];
                                     }
