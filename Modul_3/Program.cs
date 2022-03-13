@@ -53,6 +53,22 @@ namespace Modul_3
             return true;
 
         }
+
+        public static void Filltracia(int[] arr,int[] arr1)
+        {
+            //int[] buffer = {arr.Length };
+            int buffer = 0;
+            WriteLine();
+            Write("Отфильтрованный массив: ");
+            for (int i=0;i<arr.Length;i++)
+            {
+                for(int j=0;j<arr1.Length;j++)
+                {
+                    if (arr[i] != arr1[j])buffer = arr[i];
+                }
+                Write($"{buffer}");
+            }
+        }
         static void Main(string[] args)
         {
             //1)
@@ -64,6 +80,40 @@ namespace Modul_3
             //2)
             //Write("Введите число: ");string chislo = ReadLine();
             //WriteLine( Palindrom(chislo));
+
+            //3
+            Write("Размер оригинального массива: ");
+            int n = Int32.Parse(ReadLine());
+            int[] arr =new int[n];
+            for(int i=0;i<arr.Length;i++)
+            {
+                Write($"введите {i} элемент массива: ");
+                arr[i] = Int32.Parse(Console.ReadLine());
+            }
+            Write("Размер массива с данными для фильтрации: ");
+            int n1 = Int32.Parse(ReadLine());
+            int[] arr1 = new int[n1];
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                Write($"введите {i} элемент массива: ");
+                arr1[i] = Int32.Parse(Console.ReadLine());
+            }
+            Clear();
+
+
+            Write("Оригинальный массив: ");
+            foreach (int i in arr)
+            {
+                Write($"{i} ");
+            }
+            WriteLine();
+            Write("Массив с данными для фильтрации: ");
+            foreach (int i in arr1)
+            {
+                Write($"{i} ");
+            }
+
+            Filltracia(arr, arr1);
 
             ReadLine();
         }
