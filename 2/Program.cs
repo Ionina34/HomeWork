@@ -22,23 +22,10 @@ namespace _2
                 {
                     case 1:
                         Clear();
-                        int[] A = new int[5];
+                        double[] A = new double[5];
                         double[,] B = new double[3, 4];
                         Random rand = new Random();
-                        WriteLine("заполните массив a: ");
-                        for (int i = 0; i < A.Length; i++)
-                        {
-                            Write($"введите {i} элемент массива: ");
-                            A[i] = Int32.Parse(Console.ReadLine());
-                        }
-                        Clear();
-                        WriteLine("массив A: ");
-                        foreach (int i in A)
-                        {
-                            Write($"{i} ");
-                        }
-                        WriteLine();
-                        WriteLine("массив B:");
+                        WriteLine("Массив B:");
                         int rows = B.GetUpperBound(0) + 1;
                         int cols = B.Length / rows;
                         for (int i = 0; i < rows; i++)
@@ -51,13 +38,26 @@ namespace _2
                             }
                             WriteLine();
                         }
-                        double max = 0, min = A[0], sum = 0, proz = 1, sumB = 0;
-                        int sumA = 0;
+                            WriteLine();
+                        WriteLine("Заполните массив A: ");
+                        for (int i = 0; i < A.Length; i++)
+                        {
+                            Write($"Введите {i} элемент массива: ");
+                            A[i] = Double.Parse(Console.ReadLine());
+                        }
+                            WriteLine();
+                        WriteLine("Массив A: ");
+                        foreach (int i in A)
+                        {
+                            Write($"{i} ");
+                        }
+                        WriteLine();
+                        double max = 0,min=A[0],
+                         sum = 0, proz = 1, sumB = 0,
+                         sumA = 0;
 
                         foreach (int i in A)
                         {
-                            if (i > max) max = i;
-                            if (i < min) min = i;
                             sum += i;
                             proz *= i;
                             if (i % 2 == 0) sumA += i;
@@ -66,11 +66,20 @@ namespace _2
                         {
                             for (int h = 0; h < cols; h++)
                             {
-                                if (B[i, h] > max) max = B[i, h];
-                                if (B[i, h] < min) min = B[i, h];
                                 sum += B[i, h];
                                 proz *= B[i, h];
                                 if ((h + 1) % 2 != 0) sumB += B[i, h];
+                            }
+                        }
+                        for (int i = 0;i<A.Length;i++)
+                        {
+                            for (int h=0;h<rows;h++)
+                            {
+                                for(int k=0;k<cols;k++)
+                                {
+                                    if (A[i] > max && A[i] == B[h, k]) max = A[i];
+                                    if (A[i] < min && A[i] == B[h, k]) min =A[i];
+                                }
                             }
                         }
                         WriteLine();

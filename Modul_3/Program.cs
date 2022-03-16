@@ -54,20 +54,27 @@ namespace Modul_3
 
         }
 
-        public static void Filltracia(int[] arr,int[] arr1)
+        public static void Filltracia(int[] arr, int[] arr1)
         {
-            //int[] buffer = {arr.Length };
-            int buffer = 0;
+            int[] buffer = { arr.Length };
             WriteLine();
             Write("Отфильтрованный массив: ");
-            for (int i=0;i<arr.Length;i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                for(int j=0;j<arr1.Length;j++)
+                for (int j = 0; j < arr1.Length; j++)
                 {
-                    if (arr[i] != arr1[j])buffer = arr[i];
+                    if (arr[i] != arr1[i])
+                    {
+                        buffer[i] = arr[i];
+                    }
+                    else buffer[i] = 0;
                 }
-                Write($"{buffer}");
+                Write($"{buffer[i]}");
             }
+            //foreach (int i in buffer)
+            //{
+            //    Write($"{i}");
+            //}
         }
         static void Main(string[] args)
         {
@@ -84,8 +91,8 @@ namespace Modul_3
             //3
             Write("Размер оригинального массива: ");
             int n = Int32.Parse(ReadLine());
-            int[] arr =new int[n];
-            for(int i=0;i<arr.Length;i++)
+            int[] arr = new int[n];
+            for (int i = 0; i < arr.Length; i++)
             {
                 Write($"введите {i} элемент массива: ");
                 arr[i] = Int32.Parse(Console.ReadLine());
