@@ -15,7 +15,43 @@ namespace Modul_3
         public string IP { get; set; } = "0.0.0.0";
         public void Print()
         {
-            Write($"{Name}, {URL}, {Description}, {IP}");
+            Write($"Название сайта: {Name}\n" +
+                $"Путь к сайту: {URL}\n" +
+                $"Описание сайта: {Description}\n" +
+                $"IP-адрес сайта: {IP}");
+        }
+    }
+
+    class Journal
+    {
+        public string Name { get; set; } = "Название по умолчанию";
+        public DateTime year_of_foundation { get; set; } = new DateTime(0, 0, 0);
+        public string Description { get; set; } = "Описание отсутствует";
+        public string Phone { get; set; } = "Нет официального номера телефона";
+        public string Email { get; set; } = "E-mail отсутствует";
+        public void Print()
+        {
+            Write( $"Название журнала: {Name}\n" +
+                $"Год основания: {year_of_foundation}\n" +
+                $"Описание журнала: {Description}\n" +
+                $"Контактный телефон: {Phone}\n" +
+                $"Контактный e-mail: {Email}\n");
+        }
+    }
+    class Shop
+    {
+        public string Name { get; set; } = "Без названия";
+        public string Adress { get; set; } = "Адрес неизвестен";
+        public string Description { get; set; } = "Описание не добавили";
+        public string Phone { get; set; } = "Номер телефона не известен";
+        public string Email { get; set; } = "Почту не завели";
+        public void Print()
+        {
+            Write($"Название магазина: {Name}" +
+                $"Адрес магазина: {Adress}" +
+                $"Описание магазина {Description}: " +
+                $"Номер телефона магазина: {Phone}" +
+                $"E-mail: {Email}");
         }
     }
 
@@ -85,18 +121,18 @@ namespace Modul_3
         }
         static void Main(string[] args)
         {
-            //1)
-            //Write("Введите сторону квадрата: ");
-            //int a = Int32.Parse(ReadLine());
-            //Write("Введите символ: ");string simbol = ReadLine();
-            //Square(a, simbol);
+           //Задание 1
+            Write("Введите сторону квадрата: ");
+            int a = Int32.Parse(ReadLine());
+            Write("Введите символ: "); string simbol = ReadLine();
+            Square(a, simbol);
 
-            //2)
-            //Write("Введите число: ");string chislo = ReadLine();
-            //WriteLine( Palindrom(chislo));
+            //Задание 2
+            Write("Введите число: "); string chislo = ReadLine();
+            WriteLine(Palindrom(chislo));
 
-            //3
-            /*Write("Размер оригинального массива: ");
+            //Задание 3
+            Write("Размер оригинального массива: ");
             int n = Int32.Parse(ReadLine());
             int[] arr = new int[n];
             for (int i = 0; i < arr.Length; i++)
@@ -127,7 +163,8 @@ namespace Modul_3
                 Write($"{i} ");
             }
 
-            Filltracia(arr, arr1);*/
+            Filltracia(arr, arr1);
+
 
             ReadLine();
         }
