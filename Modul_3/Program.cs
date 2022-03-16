@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace Modul_3
 {
+    class WebSite
+    {
+        public string Name { get; set; } = "Название по умолчанию";
+        public string URL { get; set; } = "Путь по умолчанию";
+        public string Description { get; set; } = "Сайт без описания";
+        public string IP { get; set; } = "0.0.0.0";
+        public void Print()
+        {
+            Write($"{Name}, {URL}, {Description}, {IP}");
+        }
+    }
+
     class Program
     {
         public static void Square(int a, string simbol)
@@ -56,25 +68,20 @@ namespace Modul_3
 
         public static void Filltracia(int[] arr, int[] arr1)
         {
-            int[] buffer = { arr.Length };
             WriteLine();
             Write("Отфильтрованный массив: ");
-            for (int i = 0; i < arr.Length; i++)
+            for(int i=0;i<arr1.Length;i++)
             {
-                for (int j = 0; j < arr1.Length; j++)
+                for(int j=0;j<arr.Length;j++)
                 {
-                    if (arr[i] != arr1[i])
-                    {
-                        buffer[i] = arr[i];
-                    }
-                    else buffer[i] = 0;
+                    if (arr[j]==arr1[i]) arr[j] = 0;
                 }
-                Write($"{buffer[i]}");
             }
-            //foreach (int i in buffer)
-            //{
-            //    Write($"{i}");
-            //}
+            foreach (int i in arr)
+            {
+                if(i!=0)
+                Write($"{i}");
+            }
         }
         static void Main(string[] args)
         {
@@ -89,7 +96,7 @@ namespace Modul_3
             //WriteLine( Palindrom(chislo));
 
             //3
-            Write("Размер оригинального массива: ");
+            /*Write("Размер оригинального массива: ");
             int n = Int32.Parse(ReadLine());
             int[] arr = new int[n];
             for (int i = 0; i < arr.Length; i++)
@@ -120,7 +127,7 @@ namespace Modul_3
                 Write($"{i} ");
             }
 
-            Filltracia(arr, arr1);
+            Filltracia(arr, arr1);*/
 
             ReadLine();
         }

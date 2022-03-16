@@ -38,21 +38,21 @@ namespace _2
                             }
                             WriteLine();
                         }
-                            WriteLine();
+                        WriteLine();
                         WriteLine("Заполните массив A: ");
                         for (int i = 0; i < A.Length; i++)
                         {
                             Write($"Введите {i} элемент массива: ");
                             A[i] = Double.Parse(Console.ReadLine());
                         }
-                            WriteLine();
+                        WriteLine();
                         WriteLine("Массив A: ");
-                        foreach (int i in A)
+                        for(int i=0;i<A.Length;i++)
                         {
-                            Write($"{i} ");
+                            Write($"{A[i]}  ");
                         }
                         WriteLine();
-                        double max = 0,min=A[0],
+                        double max = 0, min = A[0],
                          sum = 0, proz = 1, sumB = 0,
                          sumA = 0;
 
@@ -71,20 +71,21 @@ namespace _2
                                 if ((h + 1) % 2 != 0) sumB += B[i, h];
                             }
                         }
-                        for (int i = 0;i<A.Length;i++)
+                        for (int i = 0; i < A.Length; i++)
                         {
-                            for (int h=0;h<rows;h++)
+                            for (int h = 0; h < rows; h++)
                             {
-                                for(int k=0;k<cols;k++)
+                                for (int k = 0; k < cols; k++)
                                 {
-                                    if (A[i] > max && A[i] == B[h, k]) max = A[i];
-                                    if (A[i] < min && A[i] == B[h, k]) min =A[i];
+                                    if (A[i] == B[h, k] && A[i] > max) max = A[i];
+                                    if (A[i] < min && A[i] == B[h, k]) min = A[i];
                                 }
                             }
                         }
                         WriteLine();
-                        WriteLine($"Общий максимальный элемент: {max}\nОбщий минимальный элемент: {min}\n" +
-                            $"Сумма элементов: {sum}\nПроизведение элементов: {proz}\nСумма четных элементов массива А: {sumA}\n" +
+                        WriteLine(max !=0 ? $"Общий максимальный элемент: {max}" : "Общего максимального элемента нет") ;
+                        WriteLine(min != 0 ? $"Общий минимальный элемент: {min}" : "Общего минимального элемента нет") ;
+                        WriteLine($"Сумма элементов: {sum}\nПроизведение элементов: {proz}\nСумма четных элементов массива А: {sumA}\n" +
                             $"Сумма нечетных столбцов массива В: {sumB}");
                         btn = Console.ReadKey();
                         break;
