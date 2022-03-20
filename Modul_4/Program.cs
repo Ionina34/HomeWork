@@ -10,6 +10,9 @@ namespace Modul_4
     {
         static void Main(string[] args)
         {
+            new Game();
+
+            Console.ReadKey();
         }
     }
 }
