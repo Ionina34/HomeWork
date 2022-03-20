@@ -94,7 +94,7 @@ namespace Modul_4
                     Random rand = new Random();
 
                     if (_field[1, 1] == ' ') _field[1, 1] = 'O';
-                    Computer();
+                    else Computer();
                     Draw();
                 }
 
@@ -102,64 +102,7 @@ namespace Modul_4
         }
         private void Computer()
         {
-                if (_field[1, 1] == 'O' && _field[0, 1] == 'O')
-                    _field[2, 1] = 'O';
-                else if (_field[1, 1] == 'O' && _field[0, 2] == 'O')
-                    _field[2, 0] = 'O';
-                else if (_field[1, 1] == 'O' && _field[1, 2] == 'O')
-                    _field[1, 0] = 'O';
-                else if (_field[1, 1] == 'O' && _field[2, 2] == 'O')
-                    _field[0, 0] = 'O';
-                else if (_field[1, 1] == 'O' && _field[2, 1] == 'O')
-                    _field[0, 1] = 'O';
-                else if (_field[1, 1] == 'O' && _field[2, 0] == 'O')
-                    _field[0, 2] = 'O';
-                else if (_field[1, 1] == 'O' && _field[1, 0] == 'O')
-                    _field[1, 2] = 'O';
-                else if (_field[1, 1] == 'O' && _field[0, 0] == 'O')
-                    _field[2, 2] = 'O';
-            if (_field[1, 1] == 'O')
-            {
-                //////////////////////////////////////////////
-                 if (_field[0, 0] == 'X' && _field[0, 1] == 'X')
-                    _field[0, 2] = 'O';
-                else if (_field[0, 0] == 'X' && _field[0, 2] == 'X')
-                    _field[0, 1] = 'O';
-                else if (_field[0, 1] == 'X' && _field[0, 2] == 'X')
-                    _field[0, 0] = 'O';
-
-                else if (_field[0, 0] == 'X' && _field[1, 0] == 'X')
-                    _field[2, 0] = 'O';
-                else if (_field[0, 0] == 'X' && _field[2, 0] == 'X')
-                    _field[1, 0] = 'O';
-                else if (_field[1, 0] == 'X' && _field[2, 0] == 'X')
-                    _field[0, 0] = 'O';
-
-                else if (_field[2, 0] == 'X' && _field[2, 1] == 'X')
-                    _field[2, 2] = 'O';
-                else if (_field[2, 0] == 'X' && _field[2, 2] == 'X')
-                    _field[2, 1] = 'O';
-                else if (_field[2, 1] == 'X' && _field[2, 2] == 'X')
-                    _field[2, 0] = 'O';
-
-                else if (_field[0, 2] == 'X' && _field[1, 2] == 'X')
-                    _field[2, 2] = 'O';
-                else if (_field[0, 2] == 'X' && _field[2, 2] == 'X')
-                    _field[1, 2] = 'O';
-                else if (_field[1, 2] == 'X' && _field[2, 2] == 'X')
-                    _field[0, 2] = 'O';
-            }
-            else
-            {
-                if (_field[0, 0] == ' ') _field[0, 0] = 'o';
-                else if (_field[0, 2] == ' ') _field[0, 2] = 'o';
-                else if (_field[2, 0] == ' ') _field[2, 0] = 'o';
-                else if (_field[2, 2] == ' ') _field[2, 2] = 'o';
-                else if (_field[0, 1] == ' ') _field[0, 1] = 'o';
-                else if (_field[1, 0] == ' ') _field[1, 0] = 'o';
-                else if (_field[1, 2] == ' ') _field[1, 2] = 'o';
-                else if (_field[2, 1] == ' ') _field[2, 1] = 'o';
-            }
+           
         }
 
         private bool IsWinner(char player)
