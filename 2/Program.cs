@@ -15,7 +15,8 @@ namespace _2
             do
             {
                 Console.Clear();
-                Console.Write("Задание 1:\nЗадание 2:\nЗадание 3:\nЗадание 4:\nЗадание 5:\nЗадание 7:\n");
+                Console.Write("Задание 1:\nЗадание 2:\nЗадание 3:\nЗадание 4:" +
+                    "\nЗадание 5:\nЗадание 7.1:\nЗадание 7.2:\n");
                 Console.Write("Сделайте свой выбор: ");
                 int s = Int32.Parse(Console.ReadLine());
                 switch (s)
