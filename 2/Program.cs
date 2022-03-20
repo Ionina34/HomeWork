@@ -149,7 +149,7 @@ namespace _2
                                             break;
                                         }
                                     }
-                                    if (j != 33) ;//Если 33 символ  не из алфовита
+                                    if (j != 33) ;//Если 33 - символ  не из алфовита
                                     {
                                         nomer = j;
                                         nomer += sdvig;
@@ -348,6 +348,29 @@ namespace _2
                         //WriteLine();
                         WriteLine(a);
                         WriteLine($"{statistica} замены слова die");
+                        btn = Console.ReadKey();
+                        break;
+                    case 8:
+                        Clear();
+                        int statistica_1 = 0;
+                        WriteLine("Введите текст:");
+                        string a_1 = ReadLine();
+                        Write("Введите недопустимое слово: ");string slovo = ReadLine();
+                        Write("Введите слово-замену: ");string zamena = ReadLine();
+                        a_1 = a_1.Replace(slovo, zamena);
+
+                        for(int i=0;i<a_1.Length;i++)
+                        {
+                            for(int h=0;h<zamena.Length;h++)
+                            {
+                                if (a_1[i] == zamena[h])
+                                statistica_1++;
+                            }
+                        }
+                        if (zamena.Length > 1) statistica_1 /= zamena.Length;
+
+                        WriteLine($"Изменненный текст: {a_1}");
+                        WriteLine($"{statistica_1} замены {slovo} на {zamena}");
                         btn = Console.ReadKey();
                         break;
                     default:
