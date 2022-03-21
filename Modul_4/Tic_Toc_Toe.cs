@@ -60,12 +60,8 @@ namespace Modul_4
                         {
                             Computer1();
                             Draw();
-                            Proverka();
 
-                            WriteLine("\nПервым ходит компьютер");
-                            Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
-                            Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
-                            Player_2(rows, cols);
+                            Player_2();
                             Draw();
                         } while (true);
                     }
@@ -132,8 +128,15 @@ namespace Modul_4
                 Proverka();
             }
         }
-        private void Player_2(int rows, int cols)
+        private void Player_2()
         {
+            
+            Proverka();
+            int rows, cols;
+            WriteLine("\nПервым ходит компьютер");
+
+            Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
+            Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
             //Ход делает игрок
             if (0 <= rows && rows <= 2 && 0 <= cols && cols <= 2)
             {
