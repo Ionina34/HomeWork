@@ -23,22 +23,53 @@ namespace Modul_4
             int v = Int32.Parse(ReadLine());
             Draw();
             int rows, cols;
-            switch(v)
+            switch (v)
             {
                 case 1:
                     do
                     {
-                            Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
-                            Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
+                        Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
+                        Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
 
-                    Update(rows,cols);
-                    Draw();
+                        Update(rows, cols);
+                        Draw();
                     } while (true);
 
 
                     break;
                 case 2:
-            Random();
+                    Random rand = new Random();
+                    int player = rand.Next(1, 3);
+                    if (player == 1)
+                    {
+                        WriteLine("\nПервым ходит игрок");
+                        do
+                        {
+                            Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
+                            Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
+
+                            Player_1(rows, cols);
+                            Draw();
+
+
+                        } while (true);
+                    }
+                    if (player == 2)
+                    {
+                        do
+                        {
+                            Computer1();
+                            Draw();
+                            Proverka();
+
+                            WriteLine("\nПервым ходит компьютер");
+                            Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
+                            Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
+                            Player_2(rows, cols);
+                            Draw();
+                        } while (true);
+                    }
+
                     break;
             }
         }
@@ -55,13 +86,13 @@ namespace Modul_4
             WriteLine(string.Format("2 {0} | {1} | {2}", _field[2, 0], _field[2, 1], _field[2, 2]));
 
         }
-        private void Update(int rows,int cols)
+        private void Update(int rows, int cols)
         {
             if (0 <= rows && rows <= 2 && 0 <= cols && cols <= 2)
             {
                 if (_field[rows, cols] == ' ')
                 {
-                    _field[rows, cols] =_isXMove ? 'X' : 'O';
+                    _field[rows, cols] = _isXMove ? 'X' : 'O';
                     if (IsWinner('X'))
                     {
                         Draw();
@@ -85,112 +116,55 @@ namespace Modul_4
                 else WriteLine("Клетка занята!");
             }
         }
-        private int Random()
-        {
-            int row = 0, col = 0;
-
-            Random rand = new Random();
-            int player = rand.Next(1, 3);
-            if (player == 1)
-            {
-                WriteLine("\nПервым ходит игрок");
-                Player_1(row, col);
-            }
-            if (player == 2)
-            {
-                WriteLine("\nПервым ходит компьютер");
-                Player_2(row, col);
-            }
-            return player;
-        }
         private void Player_1(int rows, int cols)
         {
-            do
+            if (0 <= rows && rows <= 2 && 0 <= cols && cols <= 2)
             {
-                if (IsWinner('X'))
+                if (_field[rows, cols] == ' ')
                 {
-                    Draw();
-                    EndGame("Крестики");
+                    _field[rows, cols] = 'X';
                 }
-                else if (IsWinner('O'))
-                {
-                    Draw();
-                    EndGame("Нолики");
-                }
-                else
-                {
-                    //Ход делает игрок
-                    do
-                    {
-                        Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
-                        if (rows != 0 && rows != 1 && rows != 2)
-                            WriteLine("Такого ряда нет");
-                    } while (rows != 0 && rows != 1 && rows != 2);
+                else WriteLine("Клетка занята!");
 
-                    do
-                    {
-                        Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
-                        if (cols != 0 && cols != 1 && cols != 2)
-                            WriteLine("Такого столбца нет");
-                    } while (cols != 0 && cols != 1 && cols != 2);
-
-                    if (_field[rows, cols] == ' ')
-                    {
-                        _field[rows, cols] = 'X';
-                        Draw();
-                    }
-
-                    //Дальше ход делает компьютер:
-                    
-                    Computer();
-                    Draw();
-                }
-
-            } while (true);
+                //Дальше ход делает компьютер:
+                Computer();
+                Draw();
+                Proverka();
+            }
         }
         private void Player_2(int rows, int cols)
         {
-            do
+            //Ход делает игрок
+            if (0 <= rows && rows <= 2 && 0 <= cols && cols <= 2)
             {
-                if (IsWinner('X'))
+
+                if (_field[rows, cols] == ' ')
                 {
-                    Draw();
-                    EndGame("Крестики");
+                    _field[rows, cols] = 'O';
                 }
-                else if   (IsWinner('O'))
-                {
-                    Draw();
-                    EndGame("Нолики");
-                }
-               
-                    //Ход делает компьютер:
-
-                    Computer1();
-                    Draw();
-
-                    //Ход делает игрок
-                    do
-                    {
-                        Write("Введите номер ряда: "); rows = int.Parse(ReadLine());
-                        if (rows != 0 && rows != 1 && rows != 2)
-                            WriteLine("Такого ряда нет");
-                    } while (rows != 0 && rows != 1 && rows != 2);
-
-                    do
-                    {
-                        Write("Введите номер столбца: "); cols = int.Parse(ReadLine());
-                        if (cols != 0 && cols != 1 && cols != 2)
-                            WriteLine("Такого столбца нет");
-                    } while (cols != 0 && cols != 1 && cols != 2);
-
-                    if (_field[rows, cols] == ' ')
-                    {
-                        _field[rows, cols] = 'O';
-                        Draw();
-                    }
-                 
-
-            } while (true);
+                else WriteLine("Клетка занята!");
+            }
+            Proverka();
+        }
+        private void Proverka()
+        {
+            if (IsWinner('X'))
+            {
+                Draw();
+                EndGame("Крестики");
+            }
+            else if (IsWinner('O'))
+            {
+                Draw();
+                EndGame("Нолики");
+            }
+            else if (_field[0, 0] != ' ' && _field[0, 1] != ' ' && _field[0, 2] != ' '
+                         && _field[1, 0] != ' ' && _field[1, 1] != ' ' && _field[1, 2] != ' '
+                         && _field[2, 0] != ' ' && _field[2, 1] != ' ' && _field[2, 2] != ' ')
+            {
+                Draw();
+                EndGame1("Ничья");
+            }
         }
         private void Computer()
         {
@@ -201,208 +175,208 @@ namespace Modul_4
 
             if (hod == false)
             {
-                if (_field[0, 0] == 'O' && _field[0, 1] == 'O' && _field[0,2]==' ')
+                if (_field[0, 0] == 'O' && _field[0, 1] == 'O' && _field[0, 2] == ' ')
                 { _field[0, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 0] == 'O' && _field[0, 2] == 'O' && _field[0,1] == ' ')
+                if (_field[0, 0] == 'O' && _field[0, 2] == 'O' && _field[0, 1] == ' ')
                 { _field[0, 1] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 1] == 'O' && _field[0, 2] == 'O' && _field[0,0] == ' ')
+                if (_field[0, 1] == 'O' && _field[0, 2] == 'O' && _field[0, 0] == ' ')
                 { _field[0, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 0] == 'O' && _field[1, 0] == 'O' && _field[2,0] == ' ')
+                if (_field[0, 0] == 'O' && _field[1, 0] == 'O' && _field[2, 0] == ' ')
                 { _field[2, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 0] == 'O' && _field[2, 0] == 'O' && _field[1,0] == ' ')
+                if (_field[0, 0] == 'O' && _field[2, 0] == 'O' && _field[1, 0] == ' ')
                 { _field[1, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[1, 0] == 'O' && _field[2, 0] == 'O' && _field[0,0] == ' ')
+                if (_field[1, 0] == 'O' && _field[2, 0] == 'O' && _field[0, 0] == ' ')
                 { _field[0, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 0] == 'O' && _field[2, 1] == 'O' && _field[2,2] == ' ')
+                if (_field[2, 0] == 'O' && _field[2, 1] == 'O' && _field[2, 2] == ' ')
                 { _field[2, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 0] == 'O' && _field[2, 2] == 'O' && _field[2,1] == ' ')
+                if (_field[2, 0] == 'O' && _field[2, 2] == 'O' && _field[2, 1] == ' ')
                 { _field[2, 1] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 1] == 'O' && _field[2, 2] == 'O' && _field[2,0] == ' ')
+                if (_field[2, 1] == 'O' && _field[2, 2] == 'O' && _field[2, 0] == ' ')
                 { _field[2, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 2] == 'O' && _field[1, 2] == 'O' && _field[0,2] == ' ')
+                if (_field[2, 2] == 'O' && _field[1, 2] == 'O' && _field[0, 2] == ' ')
                 { _field[0, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 2] == 'O' && _field[0, 2] == 'O' && _field[1,2] == ' ')
+                if (_field[2, 2] == 'O' && _field[0, 2] == 'O' && _field[1, 2] == ' ')
                 { _field[1, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[1, 2] == 'O' && _field[0, 2] == 'O' && _field[2,2] == ' ')
+                if (_field[1, 2] == 'O' && _field[0, 2] == 'O' && _field[2, 2] == ' ')
                 { _field[2, 2] = 'O'; hod = true; }
             }
 
             if (hod == false)
             {
-                if (_field[0, 0] == 'O' && _field[1, 1] == 'O' && _field[2,2] == ' ')
+                if (_field[0, 0] == 'O' && _field[1, 1] == 'O' && _field[2, 2] == ' ')
                 { _field[2, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 2] == 'O' && _field[1, 1] == 'O' && _field[0,0] == ' ')
+                if (_field[2, 2] == 'O' && _field[1, 1] == 'O' && _field[0, 0] == ' ')
                 { _field[0, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 2] == 'O' && _field[1, 1] == 'O' && _field[2,0] == ' ')
+                if (_field[0, 2] == 'O' && _field[1, 1] == 'O' && _field[2, 0] == ' ')
                 { _field[2, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 0] == 'O' && _field[1, 1] == 'O' && _field[0,2] == ' ')
+                if (_field[2, 0] == 'O' && _field[1, 1] == 'O' && _field[0, 2] == ' ')
                 { _field[0, 2] = 'O'; hod = true; }
             }
 
             if (hod == false)
             {
-                if (_field[1, 0] == 'O' && _field[1, 1] == 'O' && _field[1,2] == ' ')
+                if (_field[1, 0] == 'O' && _field[1, 1] == 'O' && _field[1, 2] == ' ')
                 { _field[1, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[1, 2] == 'O' && _field[1, 1] == 'O' && _field[1,0] == ' ')
+                if (_field[1, 2] == 'O' && _field[1, 1] == 'O' && _field[1, 0] == ' ')
                 { _field[1, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 1] == 'O' && _field[1, 1] == 'O' && _field[2,1] == ' ')
+                if (_field[0, 1] == 'O' && _field[1, 1] == 'O' && _field[2, 1] == ' ')
                 { _field[2, 1] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 1] == 'O' && _field[1, 1] == 'O' && _field[0,1] == ' ')
+                if (_field[2, 1] == 'O' && _field[1, 1] == 'O' && _field[0, 1] == ' ')
                 { _field[0, 1] = 'O'; hod = true; }
             }
 
             ////////////////////////////////////////////////////////
             if (hod == false)
             {
-                if (_field[0, 0] == 'X' && _field[0, 1] == 'X' && _field[0,2] == ' ')
+                if (_field[0, 0] == 'X' && _field[0, 1] == 'X' && _field[0, 2] == ' ')
                 { _field[0, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 0] == 'X' && _field[0, 2] == 'X' && _field[0,1] == ' ')
+                if (_field[0, 0] == 'X' && _field[0, 2] == 'X' && _field[0, 1] == ' ')
                 { _field[0, 1] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 1] == 'X' && _field[0, 2] == 'X' && _field[0,0] == ' ')
+                if (_field[0, 1] == 'X' && _field[0, 2] == 'X' && _field[0, 0] == ' ')
                 { _field[0, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 0] == 'X' && _field[1, 0] == 'X' && _field[2,0] == ' ')
+                if (_field[0, 0] == 'X' && _field[1, 0] == 'X' && _field[2, 0] == ' ')
                 { _field[2, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 0] == 'X' && _field[2, 0] == 'X' && _field[1,0] == ' ')
+                if (_field[0, 0] == 'X' && _field[2, 0] == 'X' && _field[1, 0] == ' ')
                 { _field[1, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[1, 0] == 'X' && _field[2, 0] == 'X' && _field[0,0] == ' ')
+                if (_field[1, 0] == 'X' && _field[2, 0] == 'X' && _field[0, 0] == ' ')
                 { _field[0, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 0] == 'X' && _field[2, 1] == 'X' && _field[2,2] == ' ')
+                if (_field[2, 0] == 'X' && _field[2, 1] == 'X' && _field[2, 2] == ' ')
                 { _field[2, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 0] == 'X' && _field[2, 2] == 'X' && _field[2,1] == ' ')
+                if (_field[2, 0] == 'X' && _field[2, 2] == 'X' && _field[2, 1] == ' ')
                 { _field[2, 1] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 1] == 'X' && _field[2, 2] == 'X' && _field[2,0] == ' ')
+                if (_field[2, 1] == 'X' && _field[2, 2] == 'X' && _field[2, 0] == ' ')
                 { _field[2, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 2] == 'X' && _field[1, 2] == 'X' && _field[0,2] == ' ')
+                if (_field[2, 2] == 'X' && _field[1, 2] == 'X' && _field[0, 2] == ' ')
                 { _field[0, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 2] == 'X' && _field[0, 2] == 'X' && _field[1,2] == ' ')
+                if (_field[2, 2] == 'X' && _field[0, 2] == 'X' && _field[1, 2] == ' ')
                 { _field[1, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[1, 2] == 'X' && _field[0, 2] == 'X' && _field[2,2] == ' ')
+                if (_field[1, 2] == 'X' && _field[0, 2] == 'X' && _field[2, 2] == ' ')
                 { _field[2, 2] = 'O'; hod = true; }
             }
 
             if (hod == false)
             {
-                if (_field[0, 0] == 'X' && _field[1, 1] == 'X' && _field[2,2] == ' ')
+                if (_field[0, 0] == 'X' && _field[1, 1] == 'X' && _field[2, 2] == ' ')
                 { _field[2, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 2] == 'X' && _field[1, 1] == 'X' && _field[0,0] == ' ')
+                if (_field[2, 2] == 'X' && _field[1, 1] == 'X' && _field[0, 0] == ' ')
                 { _field[0, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 2] == 'X' && _field[1, 1] == 'X' && _field[2,0] == ' ')
+                if (_field[0, 2] == 'X' && _field[1, 1] == 'X' && _field[2, 0] == ' ')
                 { _field[2, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 0] == 'X' && _field[1, 1] == 'X' && _field[0,2] == ' ')
+                if (_field[2, 0] == 'X' && _field[1, 1] == 'X' && _field[0, 2] == ' ')
                 { _field[0, 2] = 'O'; hod = true; }
             }
 
             if (hod == false)
             {
-                if (_field[1, 0] == 'X' && _field[1, 1] == 'X' && _field[1,2] == ' ')
+                if (_field[1, 0] == 'X' && _field[1, 1] == 'X' && _field[1, 2] == ' ')
                 { _field[1, 2] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[1, 2] == 'X' && _field[1, 1] == 'X' && _field[1,0] == ' ')
+                if (_field[1, 2] == 'X' && _field[1, 1] == 'X' && _field[1, 0] == ' ')
                 { _field[1, 0] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[0, 1] == 'X' && _field[1, 1] == 'X' && _field[2,1] == ' ')
+                if (_field[0, 1] == 'X' && _field[1, 1] == 'X' && _field[2, 1] == ' ')
                 { _field[2, 1] = 'O'; hod = true; }
             }
             if (hod == false)
             {
-                if (_field[2, 1] == 'X' && _field[1, 1] == 'X' && _field[0,1] == ' ')
+                if (_field[2, 1] == 'X' && _field[1, 1] == 'X' && _field[0, 1] == ' ')
                 { _field[0, 1] = 'O'; hod = true; }
             }
 
