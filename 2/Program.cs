@@ -48,7 +48,7 @@ namespace _2
                         }
                         WriteLine();
                         WriteLine("Массив A: ");
-                        for(int i=0;i<A.Length;i++)
+                        for (int i = 0; i < A.Length; i++)
                         {
                             Write($"{A[i]}  ");
                         }
@@ -84,8 +84,8 @@ namespace _2
                             }
                         }
                         WriteLine();
-                        WriteLine(max !=0 ? $"Общий максимальный элемент: {max}" : "Общего максимального элемента нет") ;
-                        WriteLine(min != 0 ? $"Общий минимальный элемент: {min}" : "Общего минимального элемента нет") ;
+                        WriteLine(max != 0 ? $"Общий максимальный элемент: {max}" : "Общего максимального элемента нет");
+                        WriteLine(min != 0 ? $"Общий минимальный элемент: {min}" : "Общего минимального элемента нет");
                         WriteLine($"Сумма элементов: {sum}\nПроизведение элементов: {proz}\nСумма четных элементов массива А: {sumA}\n" +
                             $"Сумма нечетных столбцов массива В: {sumB}");
                         btn = Console.ReadKey();
@@ -356,19 +356,25 @@ namespace _2
                         int statistica_1 = 0;
                         WriteLine("Введите текст:");
                         string a_1 = ReadLine();
-                        Write("Введите недопустимое слово: ");string slovo = ReadLine();
-                        Write("Введите слово-замену: ");string zamena = ReadLine();
-                        a_1 = a_1.Replace(slovo, zamena);
+                        Write("Введите недопустимое слово: "); string slovo = ReadLine();
+                        Write("Введите слово-замену: "); string zamena = ReadLine();
 
-                        for(int i=0;i<a_1.Length;i++)
+                        string a_2 = a_1;
+                        string[] ar = { ",", ".", "!", "?", "-" };
+
+                        for (int i = 0; i < ar.Length; i++)
                         {
-                            for(int h=0;h<zamena.Length;h++)
-                            {
-                                if (a_1[i] == zamena[h])
-                                statistica_1++;
-                            }
+                            a_2 = a_2.Replace(ar[i], "");
                         }
-                        if (zamena.Length > 1) statistica_1 /= zamena.Length;
+
+                        string[] str = a_2.Split(' ');
+                        WriteLine(str[0]);
+                        for (int i = 0; i < str.Length; i++)
+                        {
+                            if (str[i] == slovo) statistica_1++;
+                        }
+
+                        a_1 = a_1.Replace(slovo, zamena);
 
                         WriteLine($"Изменненный текст: {a_1}");
                         WriteLine($"{statistica_1} замены {slovo} на {zamena}");
@@ -380,6 +386,7 @@ namespace _2
                         break;
                 }
             } while (btn.Key != ConsoleKey.Escape);
+
         }
     }
 }
