@@ -1,4 +1,5 @@
 ﻿using System;
+using static System.Console;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,16 @@ namespace Modul_4
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            new Game();
+            //1-2
+            //new Game();
 
-            Console.ReadKey();
+            //3
+       new Morse_Code();
+
+          ReadKey();
         }
     }
 }
