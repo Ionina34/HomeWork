@@ -44,8 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator_CC.cs" />
+    <Compile Include="Foreign_passport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Translating_a_number.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

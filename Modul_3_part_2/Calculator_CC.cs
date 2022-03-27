@@ -9,9 +9,9 @@ namespace Modul_3_part_2
 {
     class Calculator_CC
     {
-        string _number;
-        int _fromBase;
-        int _toBase;
+        public string _number;
+        public int _fromBase;
+        public int _toBase;
         char[] CC = { '0','1','2','3','4','5','6','7','8','9','A','B','C',
                 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T',
             'U','V','W','X','Y','Z' };
