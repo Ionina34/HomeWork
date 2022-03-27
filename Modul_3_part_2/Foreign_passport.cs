@@ -43,7 +43,23 @@ namespace Modul_3_part_2
             }
 
             //Проверка ФИО
+            try
+            {
+                string[] fio = _FIO.Split(' ');
+                int k = 0;
+                for(int i=0;i<fio.Length;i++)
+                {
+                    k++;
+                }
+                if (k != 3) throw new Exception("ФИО ведено не прaвильно");
+                else WriteLine($"ФИО: {_FIO}");
+            }
+            catch (Exception E)
+            {
+                WriteLine(E.Message);
+            }
 
+            WriteLine($"Дата выдачи: {date_of_issue}");
         }
     }
 }
