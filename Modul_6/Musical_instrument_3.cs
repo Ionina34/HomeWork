@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Modul_6
 {
-     class Musical_instrument
+     class Musical_instrument_3
     {
         public string Name { get; set; }
         public string Specifications { get; set; }
@@ -18,7 +18,7 @@ namespace Modul_6
 
     }
 
-    class Violin:Musical_instrument
+    class Violin:Musical_instrument_3
     {
         public Violin(string name, string har)
         {
@@ -43,7 +43,7 @@ namespace Modul_6
             WriteLine($"История создания иструмента: {History}");
         }
     }
-    class Trombone:Musical_instrument
+    class Trombone:Musical_instrument_3
     {
         public Trombone(string name, string har)
         {
@@ -68,7 +68,7 @@ namespace Modul_6
             WriteLine($"История создания иструмента: {History}");
         }
     }
-    class Ukulele:Musical_instrument
+    class Ukulele:Musical_instrument_3
     {
         public Ukulele(string name, string har)
         {
@@ -93,7 +93,7 @@ namespace Modul_6
             WriteLine($"История создания иструмента: {History}");
         }
     }
-    class Cello:Musical_instrument
+    class Cello:Musical_instrument_3
     {
         public Cello(string name, string har)
         {

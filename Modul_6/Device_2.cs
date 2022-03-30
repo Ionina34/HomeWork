@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Modul_6
 {
-     class Device
+     class Device_2
     {
         protected string Name; //Название устройства
         protected string Specifications; //Хар-ка
 
-        public Device(string name,  string har)
+        public Device_2(string name,  string har)
         {
             Name = name;
             Specifications = har;
@@ -25,7 +25,7 @@ namespace Modul_6
         }
     }
 
-    class Teapot:Device
+    class Teapot:Device_2
     {
         public Teapot(string name, string har) :base(name,har)
         {
@@ -46,7 +46,7 @@ namespace Modul_6
         }
     }
 
-    class Nuke:Device
+    class Nuke:Device_2
     {
         public Nuke(string name, string har):base(name,har)
         {
@@ -69,7 +69,7 @@ namespace Modul_6
         }
     }
 
-    class Avto:Device
+    class Avto:Device_2
     {
         public Avto(string name, string har) : base(name, har)
         {
@@ -92,7 +92,7 @@ namespace Modul_6
         }
     }
 
-    class Steamboat : Device
+    class Steamboat : Device_2
     {
         public Steamboat(string name, string har) : base(name, har)
         {

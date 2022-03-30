@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Modul_6
 {
-    class Money
+    class Money_1
     {
         public int whole_piece; //целая часть денег
         public int kop; //копейки
         public string money;//валюта
 
-        public Money()
+        public Money_1()
         {
             Write("Введите вылюту: "); money = ReadLine();
             Write("Введите целую часть: "); whole_piece = int.Parse(ReadLine());
@@ -22,7 +22,7 @@ namespace Modul_6
             kop %= 100;
         }
 
-        public Money(int wp, int k, string mon)
+        public Money_1(int wp, int k, string mon)
         {
             whole_piece = wp;
             if (k >= 100) whole_piece += k / 100;
@@ -36,14 +36,14 @@ namespace Modul_6
         }
     }
 
-    class Product : Money
+    class Product : Money_1
     {
         string product;//Продукт 
         public Product(string name, int wp, int k, string mon) : base(wp, k, mon)
         {
             product = name;
         }
-        public void Reduce_the_price(Money b)
+        public void Reduce_the_price(Money_1 b)
         {
             try
             {

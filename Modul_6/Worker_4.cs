@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Modul_6
 {
-   abstract class Worker
+   abstract class Worker_4
     {
         public string  Name { get; set; }
         public string  LastName { get; set; }
         public DateTime  BirthDate { get; set; }
         public double Salary { get; set; }
 
-        public Worker(string name, string lastName, DateTime date, double salary) { }
+        public Worker_4(string name, string lastName, DateTime date, double salary) { }
         public abstract void Print();
         public override string ToString()
         {
@@ -22,7 +22,7 @@ namespace Modul_6
                 $"Зарплата: {Salary}";
         }
     }
-    class President:Worker
+    class President:Worker_4
     {
         public President(string name,string lastName,DateTime date,double salary):base(name,lastName,date,salary)
         {
@@ -36,7 +36,7 @@ namespace Modul_6
             WriteLine(base.ToString());
         }
     }
-    class Security:Worker
+    class Security:Worker_4
     {
         string Smena;
         public Security(string name, string lastName, DateTime date, double salary, string smena) : base(name, lastName, date, salary)
@@ -53,7 +53,7 @@ namespace Modul_6
         }
     }
 
-    class Manager : Worker
+    class Manager : Worker_4
     {
         string Qualifications;
         public Manager(string name, string lastName, DateTime date, double salary, string qua) : base(name, lastName, date, salary)
@@ -69,7 +69,7 @@ namespace Modul_6
             WriteLine(base.ToString() + $"\nКвалификация: {Qualifications}");
         }
     }
-    class Engineer : Worker
+    class Engineer : Worker_4
     {
         int Work_experience;
         public Engineer(string name, string lastName, DateTime date, double salary,int work) : base(name, lastName, date, salary)
