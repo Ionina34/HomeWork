@@ -366,9 +366,7 @@ namespace _2
                         {
                             a_2 = a_2.Replace(ar[i], "");
                         }
-
                         string[] str = a_2.Split(' ');
-                        WriteLine(str[0]);
                         for (int i = 0; i < str.Length; i++)
                         {
                             if (str[i] == slovo) statistica_1++;

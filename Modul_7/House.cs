@@ -101,7 +101,7 @@ namespace Modul_7
     public class Worker:IWorker
     {
         string Name  {get;set;}
-        string IWorker.Name => Name;
+       string IWorker.Name => Name;
         public Worker(string name) => Name = name;
         public void Build(House house , TeamLeader leader)
         {
