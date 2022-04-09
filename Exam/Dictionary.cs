@@ -54,7 +54,7 @@ namespace Exam
                     List<string> per = new List<string>();
 
                     string remove = "";
-                    bool flag = true;
+                    bool flag = false;
 
                     foreach (var j in dict)
                     {
@@ -62,43 +62,40 @@ namespace Exam
                         {
                             per = j.Value;
                             remove = j.Key;
-                        }
-                        else
-                        {
-                            WriteLine("Совпадений не найдено");
-                            flag = false;
+                            flag = true;
+                            break;
                         }
                     }
                     dict.Remove(remove);
                     if (flag == true)
                         dict.Add(newslovo, per);
+                    else WriteLine("Совпадений не найдено");
 
                     break;
                 case 2:
                     Write("Перевод какого слова хотите поменять: ");
                     string slov = ReadLine();
 
-                    char[] sl = slov.ToCharArray();
-                    sl[0] = char.ToUpper(sl[0]);
-                    slov = String.Concat<char>(sl);
-
-                    Write("Введите новый перевод: ");
-
-                    List<string> newper = new List<string>();
-                    ConsoleKeyInfo btn;
-                    int i = 1;
-                    WriteLine("Kак только введете все варианты перевода нажмите Escape");
-                    do
+                    if (dict.ContainsKey(slov))
                     {
-                        Write($"Введите {i} перевод слова {slov}: ");
-                        string pere = ReadLine();
-                        i++;
-                        newper.Add(pere);
-                        btn = ReadKey();
-                    } while (btn.Key != ConsoleKey.Escape);
+                        Write("Введите новый перевод: ");
 
-                    dict[slov] = newper;
+                        List<string> newper = new List<string>();
+                        ConsoleKeyInfo btn;
+                        int i = 1;
+                        WriteLine("Kак только введете все варианты перевода нажмите Escape");
+                        do
+                        {
+                            Write($"Введите {i} перевод слова {slov}: ");
+                            string pere = ReadLine();
+                            i++;
+                            newper.Add(pere);
+                            btn = ReadKey();
+                        } while (btn.Key != ConsoleKey.Escape);
 
+                        dict[slov] = newper;
+                    }
+                    else WriteLine("Совпадений не найдено");
                     break;
                 default:
                     WriteLine("Error");
@@ -109,6 +106,7 @@ namespace Exam
         {
             Write("1-Удалить слово\n2-Удалить перевод\nВы пыбрали: ");
             int k = int.Parse(ReadLine());
+            bool flag = false;
             switch (k)
             {
                 case 1:
@@ -118,36 +116,41 @@ namespace Exam
 
                     foreach (var i in dict.Keys)
                         if (i == slo)
+                        {
                             remove = i;
+                            flag = true;
+                        }
+                    if (flag == false)
+                        WriteLine("Совпадений не найдено");
+
                     dict.Remove(remove);
                     break;
                 case 2:
                     Write("Перевод какого слова хотите удалить: ");
                     string slovo = ReadLine().ToLower();
 
-#if false
-                    //foreach (var i in dict.Keys)
-                    //    if (i == slovo)
-                    //        if (dict[i].Count == 1)
-                    //            WriteLine($"Это единственный перевод слова {Format(slovo)}");
-                    //        else
-                    //        {
-                    //            Write("Какую вариацию перевода хотите удалить: ");
-                    //            string perRemove = ReadLine().ToLower();
-                    //            List<string> per = dict[i];
-                    //            int index = 0;
+                    foreach (var i in dict.Keys)
+                        if (i == slovo)
+                            if (dict[i].Count == 1)
+                                WriteLine($"Это единственный перевод слова {Format(slovo)}");
+                            else
+                            {
+                                Write("Какую вариацию перевода хотите удалить: ");
+                                string perRemove = ReadLine().ToLower();
+                                List<string> per = dict[i];
+                                int index = 0;
 
-                    //            foreach (var j in per)
-                    //            {
-                    //                index++;
-                    //                if (j == perRemove)
-                    //                    break;
-                    //            }
-                    //            WriteLine(index);
-                    //            per.RemoveAt(index-1);
-                    //            //dict[i] = per;
-                    //        }  
-#endif
+                                for (int p = 0; p < per.Count; p++)
+                                {
+                                    if (per[p] != perRemove)
+                                        index++;
+                                    else break;
+                                }
+
+                                WriteLine(index);
+                                per.RemoveAt(index);
+                            }
+                        else WriteLine("Совпадений не найдено");
                     break;
                 default:
                     WriteLine("Error");
