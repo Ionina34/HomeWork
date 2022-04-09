@@ -12,9 +12,13 @@ namespace Exam
         {
             Dictionary dictionary = new Dictionary("Англо-русский");
             dictionary.Add();
+            //dictionary.Add();
             dictionary.Print();
 
-            dictionary.Replacement();
+            //dictionary.Replacement();
+            //dictionary.Print();
+
+            dictionary.Remove();
             dictionary.Print();
         }
     }

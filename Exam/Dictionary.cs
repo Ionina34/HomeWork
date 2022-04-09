@@ -12,7 +12,7 @@ namespace Exam
     {
         string Name { get; }
     }
-    class Dictionary :Method, IDictionary
+    class Dictionary : Method, IDictionary
     {
         Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
         string Name { get; set; }
@@ -32,7 +32,7 @@ namespace Exam
             WriteLine("Kак только введете все варианты перевода нажмите Escape");
             do
             {
-                Write($"Введите {i} перевод слова {orig}: ");
+                Write($"Введите {i} перевод слова {Format(orig)}: ");
                 string pere = ReadLine();
                 i++;
                 per.Add(pere);
@@ -52,25 +52,33 @@ namespace Exam
                     string slovo = ReadLine().ToLower();
                     Write("Введите слово для замены: "); string newslovo = ReadLine().ToLower();
                     List<string> per = new List<string>();
+
                     string remove = "";
+                    bool flag = true;
 
                     foreach (var j in dict)
                     {
                         if (slovo == j.Key.ToLower())
-                        { 
+                        {
                             per = j.Value;
                             remove = j.Key;
                         }
+                        else
+                        {
+                            WriteLine("Совпадений не найдено");
+                            flag = false;
+                        }
                     }
                     dict.Remove(remove);
-                    dict.Add(newslovo, per);
+                    if (flag == true)
+                        dict.Add(newslovo, per);
 
                     break;
                 case 2:
-                    Write("Какова слова хитите поменять перевод: ");
+                    Write("Перевод какого слова хотите поменять: ");
                     string slov = ReadLine();
 
-                    char[] sl= slov.ToCharArray();
+                    char[] sl = slov.ToCharArray();
                     sl[0] = char.ToUpper(sl[0]);
                     slov = String.Concat<char>(sl);
 
@@ -90,7 +98,7 @@ namespace Exam
                     } while (btn.Key != ConsoleKey.Escape);
 
                     dict[slov] = newper;
-                    
+
                     break;
                 default:
                     WriteLine("Error");
@@ -99,7 +107,52 @@ namespace Exam
         }
         public void Remove()
         {
+            Write("1-Удалить слово\n2-Удалить перевод\nВы пыбрали: ");
+            int k = int.Parse(ReadLine());
+            switch (k)
+            {
+                case 1:
+                    Write("Какое слово хотите удалить: ");
+                    string slo = ReadLine().ToLower();
+                    string remove = "";
 
+                    foreach (var i in dict.Keys)
+                        if (i == slo)
+                            remove = i;
+                    dict.Remove(remove);
+                    break;
+                case 2:
+                    Write("Перевод какого слова хотите удалить: ");
+                    string slovo = ReadLine().ToLower();
+
+#if false
+                    //foreach (var i in dict.Keys)
+                    //    if (i == slovo)
+                    //        if (dict[i].Count == 1)
+                    //            WriteLine($"Это единственный перевод слова {Format(slovo)}");
+                    //        else
+                    //        {
+                    //            Write("Какую вариацию перевода хотите удалить: ");
+                    //            string perRemove = ReadLine().ToLower();
+                    //            List<string> per = dict[i];
+                    //            int index = 0;
+
+                    //            foreach (var j in per)
+                    //            {
+                    //                index++;
+                    //                if (j == perRemove)
+                    //                    break;
+                    //            }
+                    //            WriteLine(index);
+                    //            per.RemoveAt(index-1);
+                    //            //dict[i] = per;
+                    //        }  
+#endif
+                    break;
+                default:
+                    WriteLine("Error");
+                    break;
+            }
         }
         public void Print()
         {
