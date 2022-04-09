@@ -17,7 +17,6 @@ namespace Modul_6
             Name = name;
             Specifications = har;
         }
-
         public override string ToString()
         {
             return ($"Название устройства: {Name}\n" +
@@ -36,11 +35,11 @@ namespace Modul_6
         {
             WriteLine("*очень раздражающий свист чайника*\n\t тфиииииииииииии");
         }
-        public  void Show()
+        public void Show()
         {
             WriteLine($"Название стройства: {Name}");
         }
-        public  void Desc()
+        public void Desc()
         {
             WriteLine($"Характеристика устройства: {Specifications}");
         }
@@ -53,16 +52,16 @@ namespace Modul_6
             Name = name;
             Specifications = har;
         }
-        public  void Sound()
+        public void Sound()
         {
             WriteLine($"*звуки приготовления еды*\n\tтыыыыыыыыыыыыыыын пик пик");
         }
-        public  void Show()
+        public void Show()
         {
             WriteLine($"Название стройства: {Name}");
 
         }
-        public  void Desc()
+        public void Desc()
         {
             WriteLine($"Характеристика устройства: {Specifications}");
 
@@ -76,16 +75,16 @@ namespace Modul_6
             Name = name;
             Specifications = har;
         }
-        public  void Sound()
+        public void Sound()
         {
             WriteLine($"*звуки лихача*\n\tбжиииииииии бжииииии птхххххх");
         }
-        public  void Show()
+        public void Show()
         {
             WriteLine($"Название стройства: {Name}");
 
         }
-        public  void Desc()
+        public void Desc()
         {
             WriteLine($"Характеристика устройства: {Specifications}");
 
@@ -103,12 +102,12 @@ namespace Modul_6
         {
             WriteLine($"*звук морского путешествия*\n\tпииии пиииии жжжжжжжжжжжж");
         }
-        public  void Show()
+        public void Show()
         {
             WriteLine($"Название стройства: {Name}");
 
         }
-        public  void Desc()
+        public void Desc()
         {
             WriteLine($"Характеристика устройства: {Specifications}");
 

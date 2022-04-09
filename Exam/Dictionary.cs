@@ -12,7 +12,7 @@ namespace Exam
     {
         string Name { get; }
     }
-    class Dictionary : IDictionary
+    class Dictionary :Method, IDictionary
     {
         Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
         string Name { get; set; }
@@ -24,10 +24,6 @@ namespace Exam
         public void Add()
         {
             Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
-
-            char[] slovo = orig.ToCharArray();
-            slovo[0] = char.ToUpper(slovo[0]);
-            orig = String.Concat<char>(slovo);
 
             WriteLine("Введите перевод слова: ");
             List<string> per = new List<string>();
@@ -52,17 +48,22 @@ namespace Exam
             switch (k)
             {
                 case 1:
-                    Write("Введите слово, какое вы хотите заменить: ");
-                    string slovo = ReadLine();
-                    Write("Введите слово для замены: "); string per = ReadLine().ToLower();
+                    Write("Введите слово, каторое вы хотите заменить: ");
+                    string slovo = ReadLine().ToLower();
+                    Write("Введите слово для замены: "); string newslovo = ReadLine().ToLower();
+                    List<string> per = new List<string>();
+                    string remove = "";
 
-                    //foreach(var i in dict.Keys)
-                    //{
-                    //    if(slovo ==i)
-                    //    {
-
-                    //    }
-                    //}
+                    foreach (var j in dict)
+                    {
+                        if (slovo == j.Key.ToLower())
+                        { 
+                            per = j.Value;
+                            remove = j.Key;
+                        }
+                    }
+                    dict.Remove(remove);
+                    dict.Add(newslovo, per);
 
                     break;
                 case 2:
@@ -96,12 +97,16 @@ namespace Exam
                     break;
             }
         }
+        public void Remove()
+        {
+
+        }
         public void Print()
         {
             WriteLine($"{Name} словарь");
             foreach (var i in dict.Keys)
             {
-                WriteLine($"{i} - {String.Join(", ", dict[i].ToArray())}");
+                WriteLine($"{Format(i)} - {String.Join(", ", dict[i].ToArray())}");
             }
         }
     }
