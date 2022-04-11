@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using static System.Console;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,20 +9,15 @@ using System.Threading.Tasks;
 
 namespace Exam
 {
-    interface IDictionary
+
+    class Dictionary : Method
     {
-        string Name { get; }
-    }
-    class Dictionary : Method, IDictionary
-    {
-        Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
-        string Name { get; set; }
-        string IDictionary.Name => Name;
+        public string Name { get; set; }
         public Dictionary(string name)
         {
             Name = name;
         }
-        public void Add()
+        public void Add(Dictionary<string, List<string>> dict)
         {
             Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
 
@@ -38,10 +34,9 @@ namespace Exam
                 per.Add(pere);
                 btn = ReadKey();
             } while (btn.Key != ConsoleKey.Escape);
-
             dict.Add(orig, per);
         }
-        public void Replacement()
+        public void Replacement(Dictionary<string, List<string>> dict)
         {
             Write("1 - Замена слова\n2 - Замена перевода\nВы выбрали: ");
             int k = int.Parse(ReadLine());
@@ -68,7 +63,9 @@ namespace Exam
                     }
                     dict.Remove(remove);
                     if (flag == true)
+                    {
                         dict.Add(newslovo, per);
+                    }
                     else WriteLine("Совпадений не найдено");
 
                     break;
@@ -100,9 +97,10 @@ namespace Exam
                 default:
                     WriteLine("Error");
                     break;
+
             }
         }
-        public void Remove()
+        public void Remove(Dictionary<string, List<string>> dict)
         {
             Write("1-Удалить слово\n2-Удалить перевод\nВы пыбрали: ");
             int k = int.Parse(ReadLine());
@@ -132,7 +130,10 @@ namespace Exam
                     foreach (var i in dict.Keys)
                         if (i == slovo)
                             if (dict[i].Count == 1)
+                            {
                                 WriteLine($"Это единственный перевод слова {Format(slovo)}");
+                                flag = true;
+                            }
                             else
                             {
                                 Write("Какую вариацию перевода хотите удалить: ");
@@ -142,28 +143,142 @@ namespace Exam
 
                                 for (int p = 0; p < per.Count; p++)
                                 {
-                                    if (per[p] != perRemove)
-                                        index++;
-                                    else break;
+                                    if (per[p] == perRemove)
+                                    {
+                                        index = p;
+                                        flag = true;
+                                        per.RemoveAt(index);
+                                    }
                                 }
-
-                                WriteLine(index);
-                                per.RemoveAt(index);
                             }
-                        else WriteLine("Совпадений не найдено");
+                    if (flag == false)
+                        WriteLine("Совпадений не найдено");
                     break;
                 default:
                     WriteLine("Error");
                     break;
             }
         }
-        public void Print()
+        public void Poisk(Dictionary<string, List<string>> dict)
         {
-            WriteLine($"{Name} словарь");
+            Write("Какой перевод хотите найти: ");
+            string per = ReadLine();
+            List<string> p = new List<string>();
+            bool flag = false;
+
+            foreach (var i in dict.Keys)
+            {
+                p = dict[i];
+                foreach (string j in p)
+                    if (j == per)
+                    {
+                        WriteLine($"{per} это перевод слова {Format(i)}");
+                        flag = true;
+                    }
+            }
+            if (flag == false)
+                WriteLine("Совпадений не найдено");
+        }
+        public void Print(Dictionary<string, List<string>> dict)
+        {
             foreach (var i in dict.Keys)
             {
                 WriteLine($"{Format(i)} - {String.Join(", ", dict[i].ToArray())}");
             }
+            //Clear();
+
+            //WriteLine($"{Name} словарь: ");
+            //ReadFile(dict);
+        }
+    }
+
+    class Menu : Method
+    {
+        public Menu()
+        {
+#if false
+            Write("Введите название файла для хранения словаря: ");
+            string file = ReadLine();
+            FileInfo fi1 = new FileInfo(file);
+            if (!fi1.Exists)
+            {
+                WriteFile(dict, file);
+            }
+
+            Write("2-Добавить в словарь слово");
+            int v = int.Parse(ReadLine());
+
+
+
+            switch (v)
+            {
+                case 1:
+                    ReadFile(dict, file);
+                    Add();
+                    WriteFile(dict, file);
+                    break;
+            } 
+#endif
+
+            Write("1-Создать словарь\n2-Работать с существующем словарем");
+            int v = int.Parse(ReadLine());
+
+            switch (v)
+            {
+                case 1:
+                    Write("Укажите тип словаря: ");
+                    string name = ReadLine();
+                    Dictionary dictionary = new Dictionary(name);
+
+                    Write("Введите название файла для хранения словаря: ");
+                    string file = ReadLine();
+                    File.Create(file);
+
+                    break;
+                case 2:
+                    Write("В каком файле храниться словарь: ");
+                    string files = ReadLine();
+                    //Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+
+                    Write("1-Добавить слово в словарь");
+                    int vr = int.Parse(ReadLine());
+
+                    switch(vr)
+                    {
+                        case 1:
+                            var k = File.ReadAllLines(files).Select(l => l.Split('-'));
+                            var dict = new Dictionary<string, List<string>>();
+                            foreach(var splites in k)
+                            {
+                                var key = splites.First();
+                                var value = splites.Skip(1).ToList();
+                                try { dict.Add(key, value); }
+                                catch(Exception ex) { WriteLine(ex.Message); }
+                            }
+
+                            Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
+
+                            WriteLine("Введите перевод слова: ");
+                            List<string> per = new List<string>();
+                            ConsoleKeyInfo btn;
+                            int i = 1;
+                            WriteLine("Kак только введете все варианты перевода нажмите Escape");
+                            do
+                            {
+                                Write($"Введите {i} перевод слова {Format(orig)}: ");
+                                string pere = ReadLine();
+                                i++;
+                                per.Add(pere);
+                                btn = ReadKey();
+                            } while (btn.Key != ConsoleKey.Escape);
+                            dict.Add(orig, per);
+                            WriteFile(dict,files);
+
+                            break;
+                    }
+                    break;
+            }
+
         }
     }
 }
