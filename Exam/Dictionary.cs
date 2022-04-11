@@ -17,6 +17,7 @@ namespace Exam
         {
             Name = name;
         }
+#if false
         public void Add(Dictionary<string, List<string>> dict)
         {
             Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
@@ -35,7 +36,9 @@ namespace Exam
                 btn = ReadKey();
             } while (btn.Key != ConsoleKey.Escape);
             dict.Add(orig, per);
-        }
+        } 
+#endif
+#if false
         public void Replacement(Dictionary<string, List<string>> dict)
         {
             Write("1 - Замена слова\n2 - Замена перевода\nВы выбрали: ");
@@ -99,7 +102,9 @@ namespace Exam
                     break;
 
             }
-        }
+        } 
+#endif
+#if false
         public void Remove(Dictionary<string, List<string>> dict)
         {
             Write("1-Удалить слово\n2-Удалить перевод\nВы пыбрали: ");
@@ -158,7 +163,8 @@ namespace Exam
                     WriteLine("Error");
                     break;
             }
-        }
+        } 
+#endif
         public void Poisk(Dictionary<string, List<string>> dict)
         {
             Write("Какой перевод хотите найти: ");
@@ -192,7 +198,7 @@ namespace Exam
         }
     }
 
-    class Menu : Method
+    class Menu : Replacement
     {
         public Menu()
         {
@@ -220,7 +226,7 @@ namespace Exam
             } 
 #endif
 
-            Write("1-Создать словарь\n2-Работать с существующем словарем");
+            Write("1-Создать словарь\n2-Работать с существующем словарем ");
             int v = int.Parse(ReadLine());
 
             switch (v)
@@ -232,49 +238,41 @@ namespace Exam
 
                     Write("Введите название файла для хранения словаря: ");
                     string file = ReadLine();
-                    File.Create(file);
+                    File.AppendAllText(file, name+" словарь:");
 
                     break;
                 case 2:
                     Write("В каком файле храниться словарь: ");
                     string files = ReadLine();
-                    //Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+                    var dict = new Dictionary<string, List<string>>();
+                    List<string> per = new List<string>();
 
-                    Write("1-Добавить слово в словарь");
+                    Write("1-Добавить слово в словарь\n2-Заменить слово или перевод" +
+                        "\n3-Удалить слово или перевод ");
                     int vr = int.Parse(ReadLine());
 
-                    switch(vr)
+                    switch (vr)
                     {
                         case 1:
-                            var k = File.ReadAllLines(files).Select(l => l.Split('-'));
-                            var dict = new Dictionary<string, List<string>>();
-                            foreach(var splites in k)
-                            {
-                                var key = splites.First();
-                                var value = splites.Skip(1).ToList();
-                                try { dict.Add(key, value); }
-                                catch(Exception ex) { WriteLine(ex.Message); }
-                            }
+                            Read(dict, files);
 
                             Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
 
                             WriteLine("Введите перевод слова: ");
-                            List<string> per = new List<string>();
-                            ConsoleKeyInfo btn;
-                            int i = 1;
-                            WriteLine("Kак только введете все варианты перевода нажмите Escape");
-                            do
-                            {
-                                Write($"Введите {i} перевод слова {Format(orig)}: ");
-                                string pere = ReadLine();
-                                i++;
-                                per.Add(pere);
-                                btn = ReadKey();
-                            } while (btn.Key != ConsoleKey.Escape);
+                            Perevod(per, orig);
                             dict.Add(orig, per);
-                            WriteFile(dict,files);
 
+                            WriteFile(dict, files);
                             break;
+                        case 2:
+                            Replacement replacement = new Replacement();
+                            replacement.Replace(files, dict, per);
+                            break;
+                        case 3:
+                            Removes removes = new Removes();
+                            removes.Remove(files, dict);
+                            break;
+
                     }
                     break;
             }

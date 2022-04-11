@@ -10,18 +10,6 @@ namespace Exam
     {
         static void Main(string[] args)
         {
-            //Dictionary dictionary = new Dictionary("Англо-русский");
-            //dictionary.Add();
-            ////dictionary.Add();
-            //dictionary.Print();
-
-            ////dictionary.Replacement();
-            ////dictionary.Print();
-
-            ////dictionary.Remove();
-            ////dictionary.Print();
-
-            ////dictionary.Poisk();
             Menu menu = new Menu();
         }
     }
