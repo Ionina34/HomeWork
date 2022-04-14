@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Exam
 {
-    class Removes:Method
+    class Removes : Method
     {
         public void Remove(string files, Dictionary<string, List<string>> dict)
         {
-            Write("1-Удалить слово\n2-Удалить перевод\nВы пыбрали: ");
+            Write("1-Удалить слово\n2-Удалить перевод\nВы выбрали: ");
             int k = int.Parse(ReadLine());
             bool flag = false;
             switch (k)
@@ -23,7 +23,7 @@ namespace Exam
                     string remove = "";
 
                     foreach (var i in dict.Keys)
-                        if (i == slo)
+                        if (i.ToLower() == slo)
                         {
                             remove = i;
                             flag = true;
@@ -38,6 +38,7 @@ namespace Exam
                     Read(dict, files);
                     Write("Перевод какого слова хотите удалить: ");
                     string slovo = ReadLine().ToLower();
+                    List<string> newper = new List<string>();
 
                     foreach (var i in dict.Keys)
                         if (i == slovo)
@@ -50,19 +51,21 @@ namespace Exam
                             {
                                 Write("Какую вариацию перевода хотите удалить: ");
                                 string perRemove = ReadLine().ToLower();
-                                List<string> per = dict[i];
                                 int index = 0;
+                                newper = dict[i];
 
-                                for (int p = 0; p < per.Count; p++)
+                                for (int p = 0; p < newper.Count; p++)
                                 {
-                                    if (per[p] == perRemove)
+                                    if (newper[p] == perRemove)
                                     {
                                         index = p;
                                         flag = true;
-                                        per.RemoveAt(index);
+                                        newper.RemoveAt(index);
                                     }
                                 }
                             }
+                    if(flag==true)
+                    dict[slovo] = newper;
                     if (flag == false)
                         WriteLine("Совпадений не найдено");
                     WriteFile(dict, files);

@@ -25,7 +25,7 @@ namespace Exam
             do
             {
                 Write($"Введите {i} перевод слова {Format(orig)}: ");
-                string pere = ReadLine();
+                string pere = ReadLine().ToLower();
                 i++;
                 per.Add(pere);
                 btn = ReadKey();
@@ -41,7 +41,7 @@ namespace Exam
                 {
                     foreach (var i in dict.Keys)
                     {
-                        sw.WriteLine($"{Format(i)} - {String.Join(", ", dict[i].ToArray())}");
+                        sw.WriteLine($"{Format(i)} - {String.Join(", ", dict[i])}");
                     }
                 }
             }
@@ -52,22 +52,33 @@ namespace Exam
             {
                 using (StreamReader sr = new StreamReader(fs, Encoding.Unicode))
                 {
-                    sr.ReadToEnd();
+                    WriteLine(sr.ReadToEnd());
                 }
             }
         }
         public void Read(Dictionary<string, List<string>> dict, string files)
         {
-            var k = File.ReadAllLines(files).Select(l => l.Split('-'));
+            var delimeter = new[] { '-', ',' };
+            var k = File.ReadAllLines(files).Select(l => l.Split(delimeter));
             foreach (var splites in k)
             {
                 var key = splites.First().ToLower();
                 while (key.Contains(" ")) { key = key.Replace(" ", ""); }
+
                 var value = splites.Skip(1).ToList();
-                
+                for(int i=0;i<value.Count;i++)
+                {
+                    if (value[i].Contains(" ")) value[i] = value[i].Replace(" ", "");
+                }
+               
+
                 try { dict.Add(key, value); }
                 catch (Exception ex) { WriteLine(ex.Message); }
             }
+            //var res = File.ReadLines(files)
+            //    .Select(line => line.Split(delimeter))
+            //    .Select(x => dict.Add(x.First(), x.Skip(1).ToList()));
+
         }
     }
 }
