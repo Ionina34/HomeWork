@@ -8,7 +8,8 @@ namespace Exam_2___Quiz
 {
     public enum QuizType
     {
-
+        Math,
+        Mixed
     };
 
     public class Quiz

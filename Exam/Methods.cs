@@ -70,15 +70,10 @@ namespace Exam
                 {
                     if (value[i].Contains(" ")) value[i] = value[i].Replace(" ", "");
                 }
-               
 
                 try { dict.Add(key, value); }
                 catch (Exception ex) { WriteLine(ex.Message); }
             }
-            //var res = File.ReadLines(files)
-            //    .Select(line => line.Split(delimeter))
-            //    .Select(x => dict.Add(x.First(), x.Skip(1).ToList()));
-
         }
     }
 }
