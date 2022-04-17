@@ -17,15 +17,17 @@ namespace Exam
             Name = name;
         }
     }
-        class Menu : Replacement
+    class Menu : Replacement
+    {
+        public Menu()
         {
-            public Menu()
+            try
             {
-                ConsoleKeyInfo btn;
+                bool Out = true;
                 do
                 {
                     Clear();
-                    Write("1-Создать словарь\n2-Работать с существующем словарем" +
+                    Write("1-Создать словарь\n2-Работать с существующем словарем\n3-Выход" +
                         "\nВаш выбор: ");
                     int v = int.Parse(ReadLine());
 
@@ -46,62 +48,74 @@ namespace Exam
                             var dict = new Dictionary<string, List<string>>();
                             List<string> per = new List<string>();
 
-                            ConsoleKeyInfo btn1;
-                            do
+                            try
                             {
-                                Write("1-Добавить слово в словарь\n2-Заменить слово или перевод" +
-                                    "\n3-Удалить слово или перевод\n4-Поиск перевода" +
-                                    "\n5-Вывести словарь в консоль\nEscape-вернуться в главное меню" +
-                                    "\nВаш выбор: ");
-                            int vr = int.Parse(ReadLine());
-                                switch (vr)
+                                bool Exit = true;
+                                do
                                 {
-                                    case 1:
-                                        Clear();
-                                        Read(dict, files);
+                                    Clear();
+                                    Write("1-Добавить слово в словарь\n2-Заменить слово или перевод" +
+                                        "\n3-Удалить слово или перевод\n4-Поиск перевода" +
+                                        "\n5-Вывести словарь в консоль\n6-Выход в главное меню" +
+                                        "\nВаш выбор: ");
+                                    int vr = int.Parse(ReadLine());
+                                    switch (vr)
+                                    {
+                                        case 1:
+                                            Clear();
+                                            Read(dict, files);
 
-                                        Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
+                                            Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
 
-                                        WriteLine("Введите перевод слова: ");
-                                        Perevod(per, orig);
-                                        dict.Add(orig, per);
+                                            WriteLine("Введите перевод слова: ");
+                                            Perevod(per, orig);
+                                            dict.Add(orig, per);
 
-                                        WriteFile(dict, files);
-                                        break;
-                                    case 2:
-                                        Clear();
-                                        Replacement replacement = new Replacement();
-                                        replacement.Replace(files, dict, per);
-                                        break;
-                                    case 3:
-                                        Clear();
-                                        Removes removes = new Removes();
-                                        removes.Remove(files, dict);
-                                        break;
-                                    case 4:
-                                        Clear();
-                                        Poisk poisk = new Poisk();
-                                        poisk.Look(files, dict);
-                                        break;
-                                    case 5:
-                                        Clear();
-                                        ReadFile(files);
-                                        break;
-                                    default:
-                                        WriteLine("Error");
-                                        break;
-                                }
-                                btn1 = ReadKey();
-                            } while (btn1.Key != ConsoleKey.Escape);
+                                            WriteFile(dict, files);
+                                            break;
+                                        case 2:
+                                            Clear();
+                                            Replacement replacement = new Replacement();
+                                            replacement.Replace(files, dict, per);
+                                            break;
+                                        case 3:
+                                            Clear();
+                                            Removes removes = new Removes();
+                                            removes.Remove(files, dict);
+                                            break;
+                                        case 4:
+                                            Clear();
+                                            Poisk poisk = new Poisk();
+                                            poisk.Look(files, dict);
+                                            break;
+                                        case 5:
+                                            Clear();
+                                            ReadFile(files);
+                                            break;
+                                        case 6:
+                                            Exit = false;
+                                            break;
+                                        default:
+                                            WriteLine("Error");
+                                            break;
+                                    }
+                                } while (Exit);
+                            }catch(Exception e) { WriteLine(e.Message); }
+                            break;
+                        case 3:
+                            Out = false;
                             break;
                         default:
                             WriteLine("Error");
                             break;
                     }
-                    btn = ReadKey();
-
-                } while (btn.Key != ConsoleKey.Escape);
+                } while (Out);
+            }
+            catch(Exception e)
+            {
+                WriteLine(e.Message);
             }
         }
-    
+    }
+
 }
