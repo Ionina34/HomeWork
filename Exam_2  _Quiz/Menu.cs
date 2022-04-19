@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Exam_2___Quiz
 {
-     class Menu:Data
+    class Menu: Data
     {
         public Menu()
         {
@@ -49,7 +49,18 @@ namespace Exam_2___Quiz
                     break;
                 case 4:
                     Clear();
+                    WriteLine("Изменить пароль\nИзменить день рождение\n");
+                    Write("Ваш выбор: ");v = int.Parse(ReadLine());
+                    switch(v)
+                    {
+                        case 1:
+                            Clear();
 
+                            break;
+                        case 2:
+
+                            break;
+                    }
                     break;
                 case 5:
                     Clear();

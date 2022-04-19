@@ -10,9 +10,9 @@ using System.IO;
 namespace Exam_2___Quiz
 {
 
-    class Data : Users
+    class Data 
     {
-       public class DataUsers
+       public class DataUsers : Users
         {
             public Users Users { get; set; }
             public User CurUser { get; set; }
@@ -65,7 +65,7 @@ namespace Exam_2___Quiz
 
                 do
                 {
-                    Clear();
+                   Console.Clear();
                     if (!isSignIn)
                     {
                         WriteLine("Неверный логин или пароль!");
@@ -79,10 +79,22 @@ namespace Exam_2___Quiz
                 } while (!isSignIn);
                 CurUser = FindUser(login);
             }
+            public void DisplayChangeBerth()
+            {
+                string newDate;
+                WriteLine($"Текущая дата рождения: {CurUser.BirthDate.ToShortDateString()}");
+                Write("  Введите новую дату рождения в формате(yy-mm-dd): ");
+                newDate = ReadLine();
+                ChangeBirth(CurUser.Login, newDate);
+                WriteUsers(Users);
+                CurUser = FindUser(CurUser.Login);
+            }
+            public void DisplayChangePassword()
+            {
+                string newParol, parol;
+
+            }
         }
-        public class DataScore
-        {
-            private Scores _scores;
-        }
+
     }
 }

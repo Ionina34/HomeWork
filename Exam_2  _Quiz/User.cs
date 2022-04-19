@@ -134,7 +134,7 @@ namespace Exam_2___Quiz
             this.Add(new User(login, newParol, user.BirthDate));
             this.Remove(user);
         }
-        public void ChangeBirth(string login, DateTime newDate)
+        public void ChangeBirth(string login, string newDate)
         {
             User user = FindUser(login);
             this.Add(new User(login, user.Password, newDate));
@@ -142,11 +142,15 @@ namespace Exam_2___Quiz
         }
     }
 
+
+    [Serializable]
     public class Score
     {
         public string UserLogin { get; set; }
         public Score() { }
     }
+
+    [Serializable]
     public class Scores:List<Score>
     {
         public Scores() { }
