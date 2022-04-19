@@ -10,17 +10,17 @@ namespace Exam_2___Quiz
 {
     class Methods
     {
-        public void WriteUsers(string file,Users users)
+        public void WriteUsers(Users users)
         {
             BinaryFormatter bin = new BinaryFormatter();
-            using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate, FileAccess.Write))
+            using (FileStream fs = new FileStream("Users.bin", FileMode.OpenOrCreate, FileAccess.Write))
                 bin.Serialize(fs, users);
         }
-        public Users ReadUsers(string file)
+        public Users ReadUsers()
         {
             BinaryFormatter bin = new BinaryFormatter();
             Users users = null;
-            using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Read))
+            using (FileStream fs = new FileStream("Users.bin", FileMode.Create, FileAccess.Read))
                 users = (Users)bin.Deserialize(fs);
             return users;
         }

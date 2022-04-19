@@ -7,59 +7,53 @@ using System.Threading.Tasks;
 
 namespace Exam_2___Quiz
 {
-    class Menu
+     class Menu:Data
     {
         public Menu()
         {
+            DataUsers users = new DataUsers();
+
             WriteLine("<<<<<<<<<< ВИКТОРИНА >>>>>>>>>>");
             WriteLine("1-Регистрация");
             WriteLine("2-Вход");
-            Write("Ваш выбор: ");int v = int.Parse(ReadLine());
+            Write("Ваш выбор: "); int v = int.Parse(ReadLine());
             switch (v)
             {
                 case 1:
+                   users.DisplaySignUp();
                     break;
                 case 2:
+                    users.DisplaySignIn();
                     break;
             }
 
             Clear();
-            WriteLine("Начать новую викторину");
-            WriteLine("Посмотреть результаты своих прошлых викторин");
-            WriteLine("Посмотреть Топ-20 по конкретной викторине");
-            WriteLine("Изменить настройки");
-            WriteLine("Выход");v = int.Parse(ReadLine());
-            switch(v)
+            WriteLine("1-Начать новую викторину");
+            WriteLine("2-Посмотреть результаты своих прошлых викторин");
+            WriteLine("3-Посмотреть Топ-20 по конкретной викторине");
+            WriteLine("4-Изменить настройки");
+            WriteLine("5-Выход"); v = int.Parse(ReadLine());
+            switch (v)
             {
                 case 1:
                     Clear();
-                    WriteLine("1-Математика");
-                    WriteLine("2-Смешаная викторина");
-                    Write("Выберите тему викторины: ");
-                    int vQuiz = int.Parse(ReadLine());
-
-                    string heading;
-                    QuizType type = (QuizType)vQuiz - 1;
-
-                    if (type == QuizType.Mixed)
-                        heading = "Смешаная викторина";
-                    else
-                    {
-
-                    }
-
+                    Quiz quiz = new Quiz();
                     break;
                 case 2:
                     Clear();
+
                     break;
                 case 3:
                     Clear();
+
                     break;
                 case 4:
                     Clear();
+
                     break;
                 case 5:
                     Clear();
+
                     break;
             }
         }

@@ -10,7 +10,7 @@ namespace Exam_2_Quiz
     {
         static void Main(string[] args)
         {
-
+           
         }
     }
 }
