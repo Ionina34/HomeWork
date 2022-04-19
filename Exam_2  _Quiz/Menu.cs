@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Exam_2___Quiz
+namespace Exam_2_Quiz
 {
-    class Menu: Data
+  public  class Menu : Data
     {
         public Menu()
         {
             DataUsers users = new DataUsers();
+            bool Out = true;
 
             WriteLine("<<<<<<<<<< ВИКТОРИНА >>>>>>>>>>");
             WriteLine("1-Регистрация");
@@ -20,53 +21,56 @@ namespace Exam_2___Quiz
             switch (v)
             {
                 case 1:
-                   users.DisplaySignUp();
+                    users.DisplaySignUp();
                     break;
                 case 2:
                     users.DisplaySignIn();
                     break;
             }
 
-            Clear();
-            WriteLine("1-Начать новую викторину");
-            WriteLine("2-Посмотреть результаты своих прошлых викторин");
-            WriteLine("3-Посмотреть Топ-20 по конкретной викторине");
-            WriteLine("4-Изменить настройки");
-            WriteLine("5-Выход"); v = int.Parse(ReadLine());
-            switch (v)
+            do
             {
-                case 1:
-                    Clear();
-                    Quiz quiz = new Quiz();
-                    break;
-                case 2:
-                    Clear();
+                Clear();
+                WriteLine("1-Начать новую викторину");
+                WriteLine("2-Посмотреть результаты своих прошлых викторин");
+                WriteLine("3-Посмотреть Топ-20 по конкретной викторине");
+                WriteLine("4-Изменить настройки");
+                WriteLine("5-Выход"); v = int.Parse(ReadLine());
+                switch (v)
+                {
+                    case 1:
+                        Clear();
+                        Quiz quiz = new Quiz();
+                        break;
+                    case 2:
+                        Clear();
 
-                    break;
-                case 3:
-                    Clear();
+                        break;
+                    case 3:
+                        Clear();
 
-                    break;
-                case 4:
-                    Clear();
-                    WriteLine("Изменить пароль\nИзменить день рождение\n");
-                    Write("Ваш выбор: ");v = int.Parse(ReadLine());
-                    switch(v)
-                    {
-                        case 1:
-                            Clear();
-
-                            break;
-                        case 2:
-
-                            break;
-                    }
-                    break;
-                case 5:
-                    Clear();
-
-                    break;
-            }
+                        break;
+                    case 4:
+                        Clear();
+                        WriteLine("1-Изменить пароль\n2-Изменить день рождения\n");
+                        Write("Ваш выбор: "); v = int.Parse(ReadLine());
+                        switch (v)
+                        {
+                            case 1:
+                                Clear();
+                                users.DisplayChangePassword();
+                                break;
+                            case 2:
+                                Clear();
+                                users.DisplayChangeBirth();
+                                break;
+                        }
+                        break;
+                    case 5:
+                        Out = false;
+                        break;
+                }
+            } while (Out);
         }
     }
 }

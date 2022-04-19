@@ -4,33 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 
-namespace Exam_2___Quiz
+namespace Exam_2_Quiz
 {
-
-    class Data 
+    public class Data
     {
-       public class DataUsers : Users
+        public class DataUsers : Users
         {
-            public Users Users { get; set; }
+            public Users users { get; set; }
             public User CurUser { get; set; }
 
-            public void WriteUsers(Users users)
+            public DataUsers()
             {
-                BinaryFormatter bin = new BinaryFormatter();
-                using (FileStream fs = new FileStream("Users.bin", FileMode.OpenOrCreate, FileAccess.Write))
-                    bin.Serialize(fs, users);
+                users = ReadUsers();
             }
-            public Users ReadUsers()
-            {
-                BinaryFormatter bin = new BinaryFormatter();
-                Users users = null;
-                using (FileStream fs = new FileStream("Users.bin", FileMode.Create, FileAccess.Read))
-                    users = (Users)bin.Deserialize(fs);
-                return users;
-            }
+
+           
             public void DisplaySignUp()
             {
                 string login, parol, date = "";
@@ -52,11 +41,11 @@ namespace Exam_2___Quiz
                     WriteLine("Придумайте логин и пароль");
                     Write("  Логин: "); login = ReadLine();
                     Write("  Пароль: "); parol = ReadLine();
-                    isSignUp = SignUp(login, parol, date);
+                    isSignUp = users.SignUp(login, parol, date);
 
                 } while (!isSignUp);
-                WriteUsers(Users);
-                CurUser = FindUser(login);
+                WriteUsers(users);
+                CurUser = users.FindUser(login);
             }
             public void DisplaySignIn()
             {
@@ -65,36 +54,53 @@ namespace Exam_2___Quiz
 
                 do
                 {
-                   Console.Clear();
+                    Console.Clear();
                     if (!isSignIn)
                     {
                         WriteLine("Неверный логин или пароль!");
-                        WriteLine("Неверный логин или пароль!");
+                        WriteLine("Попробуйте снова");
                     }
                     WriteLine("Введите логин и пароль для входа");
                     Write("  Логин: "); login = ReadLine();
                     Write("  Пароль: "); parol = ReadLine();
-                    isSignIn = SignIn(login, parol);
+                    isSignIn = users.SignIn(login, parol);
 
                 } while (!isSignIn);
-                CurUser = FindUser(login);
+                CurUser = users.FindUser(login);
             }
-            public void DisplayChangeBerth()
+            public void DisplayChangeBirth()
             {
                 string newDate;
                 WriteLine($"Текущая дата рождения: {CurUser.BirthDate.ToShortDateString()}");
                 Write("  Введите новую дату рождения в формате(yy-mm-dd): ");
                 newDate = ReadLine();
-                ChangeBirth(CurUser.Login, newDate);
-                WriteUsers(Users);
-                CurUser = FindUser(CurUser.Login);
+                users.ChangeBirth(CurUser.Login, newDate);
+                WriteUsers(users);
+                CurUser = users.FindUser(CurUser.Login);
             }
             public void DisplayChangePassword()
             {
                 string newParol, parol;
+                bool parolCorrect = true;
 
+                do
+                {
+                    if (!parolCorrect)
+                    {
+                        WriteLine("Неверный пароль!");
+                        WriteLine("Попробуйте снова");
+                    }
+                    Write("  Введите ваш старый пароль: ");
+                    parol = ReadLine();
+                    parolCorrect = users.CheckPassword(CurUser.Login, parol);
+                } while (!parolCorrect);
+
+                Write("  Введите новый пароль: ");
+                newParol = ReadLine();
+                users.ChangePassword(CurUser.Login, newParol);
+                WriteUsers(users);
+                CurUser = users.FindUser(CurUser.Login);
             }
         }
-
     }
 }
