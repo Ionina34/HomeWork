@@ -19,7 +19,6 @@ namespace Exam_2_Quiz
                 users = ReadUsers();
             }
 
-           
             public void DisplaySignUp()
             {
                 string login, parol, date = "";
@@ -101,6 +100,10 @@ namespace Exam_2_Quiz
                 WriteUsers(users);
                 CurUser = users.FindUser(CurUser.Login);
             }
+        }
+        public class DataScores:DataUsers
+        {
+
         }
     }
 }
