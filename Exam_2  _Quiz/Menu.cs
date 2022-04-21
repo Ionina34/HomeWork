@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Exam_2_Quiz
 {
-  public  class Menu : Data
+    public class Menu
     {
         public Menu()
         {
             DataUsers users = new DataUsers();
+            DataScores scores = new DataScores();
+            DataQuiz quiz = new DataQuiz();
             bool Out = true;
 
             WriteLine("<<<<<<<<<< ВИКТОРИНА >>>>>>>>>>");
@@ -40,15 +42,26 @@ namespace Exam_2_Quiz
                 {
                     case 1:
                         Clear();
-                        Quiz quiz = new Quiz();
+                        WriteLine("1-Викторина по математике\n2-Смешанная викторина");
+                        Write("Ваш выбор: ");  v = int.Parse(ReadLine());
+                        string title;
+                        if (v == 1)
+                            title = "Математика";
+                        else title = "Микс";
+                        Score score = quiz.StartQuiz(title, users.CurUser, v);
+                        scores.AddScore(score);
                         break;
                     case 2:
-                        Clear();
-
+                        scores.ScoreUser(users.CurUser.Login);
                         break;
                     case 3:
                         Clear();
-
+                        WriteLine("1-Топ 20 по математике\n2-Топ 20 по смешанной викторине");
+                        Write("Ваш выбор: ");  v = int.Parse(ReadLine());
+                        if (v == 1)
+                            title = "Математика";
+                        else title = "Микс";
+                        scores.TopScores(title);
                         break;
                     case 4:
                         Clear();

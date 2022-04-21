@@ -10,8 +10,8 @@ namespace Exam_2_Quiz
     {
         static void Main(string[] args)
         {
-            //Menu menu = new Menu();
-            Quiz quiz = new Quiz();
+            Menu menu = new Menu();
+           // Quiz quiz = new Quiz();
         }
     }
 }

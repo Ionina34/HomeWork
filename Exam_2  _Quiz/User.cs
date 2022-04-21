@@ -66,7 +66,7 @@ namespace Exam_2_Quiz
             this.Add(new User(login, user.Password, DateTime.Parse(newDate)));
             this.Remove(user);
         }
-         /////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////
         public void WriteUsers(Users users)
         {
             BinaryFormatter bin = new BinaryFormatter();
@@ -83,17 +83,26 @@ namespace Exam_2_Quiz
         }
     }
 
+
     [Serializable]
     public class Score
     {
         public string UserLogin { get; set; }
+        public int UserScore { get; set; }
+        public string Title { get; set; }
         public Score() { }
-    }
+        public Score(string userLogin, int score,string title)
+        {
+            UserLogin = userLogin;
+            UserScore = score;
+            Title = title;
+        }
 
+    }
     [Serializable]
     public class Scores : List<Score>
     {
-        public Scores() { }
+        public Scores() {}
         public bool CheckScoreExists(string login)
         {
             return FindScore(login) != null;
@@ -101,6 +110,22 @@ namespace Exam_2_Quiz
         public Score FindScore(string login)
         {
             return this.FirstOrDefault(s => s.UserLogin == login);
+        }
+        //////////////////////////////////////////////////////////////////////
+        public void WriterScored(Scores scores)
+        {
+            BinaryFormatter bin = new BinaryFormatter();
+            using (FileStream fs = new FileStream("Scores.bin", FileMode.OpenOrCreate, FileAccess.Write))
+                bin.Serialize(fs, scores);
+        }
+        public Scores ReadScores()
+        {
+            BinaryFormatter bin = new BinaryFormatter();
+            Scores scores = null;
+            using (FileStream fs = new FileStream("Scores.bin", FileMode.OpenOrCreate, FileAccess.Read))
+                if (!(fs.Length == 0))
+                    scores = (Scores)bin.Deserialize(fs);
+            return scores;
         }
     }
 }
