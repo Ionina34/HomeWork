@@ -103,15 +103,6 @@ namespace Exam_2_Quiz
     public class Scores : List<Score>
     {
         public Scores() {}
-        public bool CheckScoreExists(string login)
-        {
-            return FindScore(login) != null;
-        }
-        public Score FindScore(string login)
-        {
-            return this.FirstOrDefault(s => s.UserLogin == login);
-        }
-        //////////////////////////////////////////////////////////////////////
         public void WriterScored(Scores scores)
         {
             BinaryFormatter bin = new BinaryFormatter();
