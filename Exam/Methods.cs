@@ -35,16 +35,24 @@ namespace Exam
 
         public void WriteFile(Dictionary<string, List<string>> dict, string file)
         {
+            string second = File.ReadLines(file).First();
+                Remove_First(dict);
             using (FileStream fs = new FileStream(file, FileMode.Create))
             {
                 using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
                 {
+                    sw.WriteLine(second);
                     foreach (var i in dict.Keys)
                     {
                         sw.WriteLine($"{Format(i)} - {String.Join(", ", dict[i])}");
                     }
                 }
             }
+        }
+        private void Remove_First(Dictionary<string, List<string>> dict)
+        {
+            var key = dict.Keys.ElementAt(0);
+            dict.Remove(key);
         }
         public void ReadFile(string file)
         {
@@ -55,6 +63,7 @@ namespace Exam
                     WriteLine(sr.ReadToEnd());
                 }
             }
+            ReadKey();
         }
         public void Read(Dictionary<string, List<string>> dict, string files)
         {
@@ -66,13 +75,13 @@ namespace Exam
                 while (key.Contains(" ")) { key = key.Replace(" ", ""); }
 
                 var value = splites.Skip(1).ToList();
-                for(int i=0;i<value.Count;i++)
+                for (int i = 0; i < value.Count; i++)
                 {
                     if (value[i].Contains(" ")) value[i] = value[i].Replace(" ", "");
                 }
 
                 try { dict.Add(key, value); }
-                catch (Exception ex) { WriteLine(ex.Message); }
+                catch (Exception e){ WriteLine(e.Message); }
             }
         }
     }

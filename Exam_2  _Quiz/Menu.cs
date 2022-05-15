@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//XML 
+//Библиотеки (классы раскидать)
 namespace Exam_2_Quiz
 {
     public class Menu

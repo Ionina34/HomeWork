@@ -17,7 +17,6 @@ namespace Exam
             switch (k)
             {
                 case 1:
-                    Read(dict, files);
                     Write("Введите слово, кoторое вы хотите заменить: ");
                     string slovo = ReadLine().ToLower();
                     Write("Введите слово для замены: "); string newslovo = ReadLine().ToLower();
@@ -40,11 +39,14 @@ namespace Exam
                         dict.Remove(remove);
                         dict.Add(newslovo, per);
                     }
-                    else WriteLine("Совпадений не найдено");
+                    else
+                    {
+                        WriteLine("Совпадений не найдено");
+                        ReadKey();
+                    }
                     WriteFile(dict, files);
                     break;
                 case 2:
-                    Read(dict, files);
                     Write("Перевод какого слова хотите поменять: ");
                     string slov = ReadLine().ToLower();
 
@@ -56,7 +58,11 @@ namespace Exam
 
                         dict[slov] = newper;
                     }
-                    else WriteLine("Совпадений не найдено");
+                    else
+                    {
+                        WriteLine("Совпадений не найдено");
+                        ReadKey();
+                    }
                     WriteFile(dict, files);
                     break;
                 default:

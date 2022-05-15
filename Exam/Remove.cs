@@ -17,7 +17,6 @@ namespace Exam
             switch (k)
             {
                 case 1:
-                    Read(dict, files);
                     Write("Какое слово хотите удалить: ");
                     string slo = ReadLine().ToLower();
                     string remove = "";
@@ -29,13 +28,15 @@ namespace Exam
                             flag = true;
                         }
                     if (flag == false)
+                    {
                         WriteLine("Совпадений не найдено");
-
-                    dict.Remove(remove);
+                        ReadKey();
+                    }
+                    else
+                        dict.Remove(remove);
                     WriteFile(dict, files);
                     break;
                 case 2:
-                    Read(dict, files);
                     Write("Перевод какого слова хотите удалить: ");
                     string slovo = ReadLine().ToLower();
                     List<string> newper = new List<string>();
@@ -64,10 +65,13 @@ namespace Exam
                                     }
                                 }
                             }
-                    if(flag==true)
-                    dict[slovo] = newper;
+                    if (flag == true)
+                        dict[slovo] = newper;
                     if (flag == false)
+                    {
                         WriteLine("Совпадений не найдено");
+                        ReadKey();
+                    }
                     WriteFile(dict, files);
                     break;
                 default:

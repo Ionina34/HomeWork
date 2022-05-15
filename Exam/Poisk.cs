@@ -7,28 +7,54 @@ using System.Threading.Tasks;
 
 namespace Exam
 {
-    class Poisk:Method
+    class Poisk : Method
     {
-        public void Look(string files,Dictionary<string,List<string>> dict)
+        public void Look(string files, Dictionary<string, List<string>> dict)
         {
-            Read(dict,files);
-            Write("Какой перевод хотите найти: ");
-            string per = ReadLine().ToLower();
-            List<string> p = new List<string>();
-            bool flag = false;
+            Write("1-Поиск слова по переводу\n2-Поиск перевода по слову\nВаш выбор: ");
+            int n = int.Parse(ReadLine());
 
-            foreach (var i in dict.Keys)
+            Clear();
+            Write("Введите слово для поиска: ");
+            string per = ReadLine().ToLower();
+
+            switch (n)
             {
-                p = dict[i];
-                foreach (string j in p)
-                    if (j == per)
+                case 1:
+                    List<string> p = new List<string>();
+                    bool flag = false;
+
+                    foreach (var i in dict.Keys)
                     {
-                        WriteLine($"{per} это перевод слова {Format(i)}");
-                        flag = true;
+                        p = dict[i];
+                        foreach (string j in p)
+                            if (j == per)
+                            {
+                                WriteLine($"{per} это перевод слова {Format(i)}");
+                                flag = true;
+                            }
                     }
+                    if (flag == false)
+                        WriteLine("Совпадений не найдено");
+                    ReadKey();
+                    break;
+                case 2:
+                    bool is_per = false;
+                    foreach (var i in dict.Keys)
+                    {
+                        if (i.ToLower() == per)
+                        {
+                            WriteLine($"{Format(i)} - {String.Join(", ", dict[i])}");
+                            is_per = true;
+                        }
+                    }
+                    if (is_per == false)
+                        WriteLine("Совпадений не найдено");
+                    ReadKey();
+                    break;
             }
-            if (flag == false)
-                WriteLine("Совпадений не найдено");
+
+
         }
     }
 }

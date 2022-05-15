@@ -17,20 +17,22 @@ namespace Exam
             Name = name;
         }
     }
+    enum Choice { Add, Replace, Remove, Poisk, Read, Exit }
     class Menu : Replacement
     {
         public Menu()
         {
-            try
+            var dict = new Dictionary<string, List<string>>();
+
+            bool Out = true;
+            do
             {
-                bool Out = true;
-                do
+                try
                 {
                     Clear();
                     Write("1-Создать словарь\n2-Работать с существующем словарем\n3-Выход" +
                         "\nВаш выбор: ");
                     int v = int.Parse(ReadLine());
-
                     switch (v)
                     {
                         case 1:
@@ -40,81 +42,110 @@ namespace Exam
 
                             Write("Введите название файла для хранения словаря: ");
                             string file = ReadLine();
+                            if (!(file.Contains(".txt"))) file = file + ".txt";
+
                             File.AppendAllText(file, name + " словарь:");
                             break;
+
                         case 2:
                             Write("В каком файле храниться словарь: ");
                             string files = ReadLine();
-                            var dict = new Dictionary<string, List<string>>();
+                            if (!(files.Contains(".txt"))) files = files + ".txt";
+
                             List<string> per = new List<string>();
 
-                            try
+                            bool Exit = true;
+                            if (File.Exists(files))
                             {
-                                bool Exit = true;
                                 do
                                 {
-                                    Clear();
-                                    Write("1-Добавить слово в словарь\n2-Заменить слово или перевод" +
-                                        "\n3-Удалить слово или перевод\n4-Поиск перевода" +
-                                        "\n5-Вывести словарь в консоль\n6-Выход в главное меню" +
-                                        "\nВаш выбор: ");
-                                    int vr = int.Parse(ReadLine());
-                                    switch (vr)
+                                    try
                                     {
-                                        case 1:
-                                            Clear();
-                                            Read(dict, files);
+                                        Clear();
+                                        Write("1-Добавить слово в словарь\n2-Заменить слово или перевод" +
+                                            "\n3-Удалить слово или перевод\n4-Поиск перевода" +
+                                            "\n5-Вывести словарь в консоль\n6-Выход в главное меню" +
+                                            "\nВаш выбор: ");
+                                        int vr = int.Parse(ReadLine()) - 1;
+                                        var choice = (Choice)vr;
 
-                                            Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
+                                        Read(dict, files);
 
-                                            WriteLine("Введите перевод слова: ");
-                                            Perevod(per, orig);
-                                            dict.Add(orig, per);
+                                        switch (choice)
+                                        {
+                                            case Choice.Add:
+                                                Clear();
 
-                                            WriteFile(dict, files);
-                                            break;
-                                        case 2:
-                                            Clear();
-                                            Replacement replacement = new Replacement();
-                                            replacement.Replace(files, dict, per);
-                                            break;
-                                        case 3:
-                                            Clear();
-                                            Removes removes = new Removes();
-                                            removes.Remove(files, dict);
-                                            break;
-                                        case 4:
-                                            Clear();
-                                            Poisk poisk = new Poisk();
-                                            poisk.Look(files, dict);
-                                            break;
-                                        case 5:
-                                            Clear();
-                                            ReadFile(files);
-                                            break;
-                                        case 6:
-                                            Exit = false;
-                                            break;
-                                        default:
-                                            WriteLine("Error");
-                                            break;
+                                                Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
+
+                                                WriteLine("Введите перевод слова: ");
+                                                Perevod(per, orig);
+                                                dict.Add(orig, per);
+
+                                                WriteFile(dict, files);
+                                                dict.Clear();
+                                                break;
+                                            case Choice.Replace:
+                                                Clear();
+                                                Replacement replacement = new Replacement();
+                                                replacement.Replace(files, dict, per);
+                                                dict.Clear();
+                                                break;
+                                            case Choice.Remove:
+                                                Clear();
+                                                Removes removes = new Removes();
+                                                removes.Remove(files, dict);
+                                                dict.Clear();
+                                                break;
+                                            case Choice.Poisk:
+                                                Clear();
+                                                Poisk poisk = new Poisk();
+                                                poisk.Look(files, dict);
+                                                dict.Clear();
+                                                break;
+                                            case Choice.Read:
+                                                Clear();
+                                                ReadFile(files);
+                                                break;
+                                            case Choice.Exit:
+                                                Exit = false;
+                                                dict.Clear();
+                                                break;
+                                            default:
+                                                WriteLine("Error");
+                                                break;
+                                        }
                                     }
+                                    catch (Exception e) { Clear(); WriteLine(e.Message); ReadKey(); dict.Clear(); }
                                 } while (Exit);
-                            }catch(Exception e) { WriteLine(e.Message); }
+                            }
+                            else
+                            {
+                                Clear();
+                                WriteLine("Файл не найден");
+                                ReadKey();
+                            }
                             break;
                         case 3:
                             Out = false;
                             break;
                         default:
+                            Clear();
                             WriteLine("Error");
+                            ReadKey();
                             break;
                     }
-                } while (Out);
-            }
-            catch(Exception e)
-            {
-                WriteLine(e.Message);
-            }
+                }
+                catch (Exception e)
+                {
+                    Clear();
+                    WriteLine(e.Message);
+                    Write("Продолжить (y/n)? - ");
+                    string answer = ReadLine();
+                    bool z = answer == "n" ? Out = false : Out = true;
+                    dict.Clear();
+                }
+            } while (Out);
         }
     }
 
