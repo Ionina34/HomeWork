@@ -39,8 +39,11 @@ namespace Exam_2_Quiz
             {
                 for (int i = 0; i < top.Count; i++)
                 {
-                    Score score = top[i];
-                    WriteLine($"{i + 1}. {score.UserLogin} - {score.UserScore}");
+                    if (i+1 <= 20)
+                    {
+                        Score score = top[i];
+                        WriteLine($"{i + 1}. {score.UserLogin} - {score.UserScore}");
+                    }
                 }
             }
             ReadKey();

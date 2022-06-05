@@ -52,8 +52,10 @@ namespace Exam_2_Quiz
                 q.Remove(answer);
                 WriteLine();
             }
+            ForegroundColor = ConsoleColor.Red;
             WriteLine("Окончание викторины!");
             WriteLine($"Ваш результат: {res} правильных ответов из {count}");
+            ResetColor();
             ReadKey();
 
             return new Score(curUser.Login, res, title);
