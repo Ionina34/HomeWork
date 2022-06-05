@@ -16,19 +16,17 @@ namespace Exam_2_Quiz
             Random rand = new Random();
 
             List<Question> q = new List<Question>();
+            XmlSerializer xml = new XmlSerializer(typeof(List<Question>));
+            q = null;
             switch (v)
             {
                 case 1:
-                    XmlSerializer xml = new XmlSerializer(typeof(List<Question>));
-                    q = null;
                     using (Stream stream = File.OpenRead("Математика.xml"))
                         q = (List<Question>)xml.Deserialize(stream);
                     break;
                 case 2:
-                    XmlSerializer xml1 = new XmlSerializer(typeof(List<Question>));
-                    q = null;
                     using (Stream stream = File.OpenRead("Микс.xml"))
-                        q = (List<Question>)xml1.Deserialize(stream);
+                        q = (List<Question>)xml.Deserialize(stream);
                     break;
                 default:
                     WriteLine("Error");
@@ -37,10 +35,11 @@ namespace Exam_2_Quiz
 
             int res = 0;
             int count = q.Count;
+             int i = 1;
             while (q.Count > 0)
             {
                 Question answer = q[rand.Next(0, q.Count)];
-                WriteLine(answer.Text);
+                WriteLine($"{i}. {answer.Text}");
                 string input = WriteAndGetAnswer(answer);
                 if (input.ToUpper() == "Q")
                     break;
@@ -51,6 +50,7 @@ namespace Exam_2_Quiz
                 // WriteLine($"Неверно! Правильный ответ: {answer.Answer[answer.correct_answer]}");
                 q.Remove(answer);
                 WriteLine();
+                i++;
             }
             ForegroundColor = ConsoleColor.Red;
             WriteLine("Окончание викторины!");

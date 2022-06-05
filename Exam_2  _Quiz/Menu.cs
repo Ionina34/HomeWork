@@ -53,9 +53,9 @@ namespace Exam_2_Quiz
                     WriteLine(e.Message);
                     WriteLine("Продалжить (y/n)? - ");
                     string answer = ReadLine();
-                    bool z = answer=="n"? Exit = false : Exit = true;
+                    bool z = answer == "n" ? Exit = false : Exit = true;
                 }
-            } while (!(Exit || In));
+            } while (In == true && Exit == true);
 
             bool Out = true;
             if (In == false)
@@ -80,6 +80,7 @@ namespace Exam_2_Quiz
                                 if (v == 1)
                                     title = "Математика";
                                 else title = "Микс";
+                                Clear();
                                 Score score = quiz.StartQuiz(title, users.CurUser, v);
                                 scores.AddScore(score);
                                 break;
@@ -89,11 +90,14 @@ namespace Exam_2_Quiz
                                 break;
                             case 3:
                                 Clear();
-                                WriteLine("1-Топ 20 по математике\n2-Топ 20 по смешанной викторине");
+                                WriteLine("1-Топ 20 по математике\n2-Топ 20 по смешанной викторине\n3-Топ 20 по Истории");
                                 Write("Ваш выбор: "); v = int.Parse(ReadLine());
                                 if (v == 1)
                                     title = "Математика";
-                                else title = "Микс";
+                                if (v == 2)
+                                    title = "Микс";
+                                else
+                                    title = "История";
                                 scores.TopScores(title);
                                 break;
                             case 4:
@@ -117,7 +121,12 @@ namespace Exam_2_Quiz
                                 break;
                         }
                     }
-                    catch (Exception e) { Clear(); WriteLine(e.Message); }
+                    catch (Exception e) { 
+                        Clear(); WriteLine(e.Message);
+                        WriteLine("Продалжить (y/n)? - ");
+                        string answer = ReadLine();
+                        bool z = answer == "n" ? Out = false : Out = true;
+                    }
                 } while (Out);
         }
     }
