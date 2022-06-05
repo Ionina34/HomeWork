@@ -69,15 +69,14 @@ namespace Exam
                                         int vr = int.Parse(ReadLine()) - 1;
                                         var choice = (Choice)vr;
 
-                                        Read(dict, files);
+                                        if (vr != 4 || vr != 5)
+                                            Read(dict, files);
 
                                         switch (choice)
                                         {
                                             case Choice.Add:
                                                 Clear();
-
                                                 Write("Введите слово оригинал: "); string orig = ReadLine().ToLower();
-
                                                 WriteLine("Введите перевод слова: ");
                                                 Perevod(per, orig);
                                                 dict.Add(orig, per);
@@ -109,7 +108,6 @@ namespace Exam
                                                 break;
                                             case Choice.Exit:
                                                 Exit = false;
-                                                dict.Clear();
                                                 break;
                                             default:
                                                 WriteLine("Error");

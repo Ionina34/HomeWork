@@ -5,23 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Exam_2_Quiz
 {
     public class DataQuiz : DataScores
     {
-        public Score StartQuiz(string title,User curUser,int v)
+        public Score StartQuiz(string title, User curUser, int v)
         {
             Random rand = new Random();
-           
+
             List<Question> q = new List<Question>();
             switch (v)
             {
                 case 1:
-                    TestMath test = new TestMath(q);
+                    XmlSerializer xml = new XmlSerializer(typeof(List<Question>));
+                    q = null;
+                    using (Stream stream = File.OpenRead("Математика.xml"))
+                        q = (List<Question>)xml.Deserialize(stream);
                     break;
                 case 2:
-                    TestMixed test1 = new TestMixed(q);
+                    XmlSerializer xml1 = new XmlSerializer(typeof(List<Question>));
+                    q = null;
+                    using (Stream stream = File.OpenRead("Микс.xml"))
+                        q = (List<Question>)xml1.Deserialize(stream);
+                    break;
+                default:
+                    WriteLine("Error");
                     break;
             }
 
@@ -44,10 +54,10 @@ namespace Exam_2_Quiz
             }
             WriteLine("Окончание викторины!");
             WriteLine($"Ваш результат: {res} правильных ответов из {count}");
-
-            return new Score(curUser.Login, res,title);
-
             ReadKey();
+
+            return new Score(curUser.Login, res, title);
+
         }
         private static string WriteAndGetAnswer(Question q)
         {
@@ -75,15 +85,18 @@ namespace Exam_2_Quiz
         public string Text { get; set; }
         public string[] Answer { get; set; }
         public int correct_answer;
+        public Question() { }
         public Question(string text, string[] answer, int correct)
         {
             this.Text = text;
             this.Answer = answer;
             this.correct_answer = correct;
         }
+
     }
     public class TestMath
     {
+        public TestMath() { }
         public TestMath(List<Question> q)
         {
             q.Add(new Question("Бессектриса это...", new string[] { "Крыса", "Мышь", "Конь", "Жираф" }, 0));
@@ -96,6 +109,10 @@ namespace Exam_2_Quiz
             q.Add(new Question("Сколько цифр «9» в ряду чисел от 1 до 100?", new string[] { "15", "25", "20", "21" }, 2));
             q.Add(new Question("Назовите 13 книгу Евклида по геометрии", new string[] { "Начала", "Начало мира", "Все и про все", "Начало начал" }, 0));
             q.Add(new Question("Сумма углов треугольника?", new string[] { "180", "220 ", "360", "150" }, 0));
+
+            //XmlSerializer xml = new XmlSerializer(typeof(List<Question>));
+            //using (Stream stream = File.Create("Математика.xml"))
+            //    xml.Serialize(stream, q);
         }
     }
     public class TestMixed
@@ -112,6 +129,10 @@ namespace Exam_2_Quiz
             q.Add(new Question("В каких единицах согласно системе СИ измеряется давление?", new string[] { "Паскаль", "Джоуль", "Кулон", "Вольт" }, 0));
             q.Add(new Question("При помощи каких образований передвигается инфузория - туфелька?", new string[] { "Ложноножек", "Ресничек", "Жгутиков" }, 1));
             q.Add(new Question("Кто из учёных открыл физический закон сохранения импульса?", new string[] { "Рене Декарт", "Исаак Ньютон", "Альберт Эйнштейн" }, 0));
+
+            //XmlSerializer xml = new XmlSerializer(typeof(List<Question>));
+            //using (Stream stream = File.Create("Микс.xml"))
+            //    xml.Serialize(stream, q);
         }
     }
 }
