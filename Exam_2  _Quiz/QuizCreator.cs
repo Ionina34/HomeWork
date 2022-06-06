@@ -73,7 +73,7 @@ namespace Exam_2_Quiz
                 catch (Exception e)
                 {
                     Clear(); WriteLine(e.Message);
-                    WriteLine("Продалжить (y/n)? - ");
+                    WriteLine("Продoлжить (y/n)? - ");
                     string answer = ReadLine();
                     bool z = answer == "n" ? Exit = false : Exit = true;
                 }
